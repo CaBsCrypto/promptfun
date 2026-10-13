@@ -1,0 +1,119 @@
+{
+  "test": "Real BFF wallet authentication + Neon QA SQL",
+  "environment": "existing restore-source QA",
+  "scope": "Real HTTP router, Ed25519 signatures using existing isolated technical keys, and native Neon PostgreSQL. No real wallet extension or managed Neon Auth claim.",
+  "result": "PASS",
+  "checks": {
+    "qa_isolation_guard": true,
+    "two_distinct_wallet_identities": true,
+    "same_nonce_rejected_403": true,
+    "private_owner_is_server_derived": true,
+    "manipulated_id_rejected_404": true,
+    "logout_revokes_cookie_401": true,
+    "fresh_pool_project_persistence": true,
+    "relogin_preserves_identity": true,
+    "original_qa_projects_unchanged": true,
+    "no_external_provider_http": true,
+    "message_signatures_only": true
+  },
+  "http_statuses": [
+    {
+      "phase": "creator challenge",
+      "status": 200
+    },
+    {
+      "phase": "creator verify",
+      "status": 200
+    },
+    {
+      "phase": "creator session",
+      "status": 200
+    },
+    {
+      "phase": "trader challenge",
+      "status": 200
+    },
+    {
+      "phase": "trader verify",
+      "status": 200
+    },
+    {
+      "phase": "trader session",
+      "status": 200
+    },
+    {
+      "phase": "consumed nonce replay",
+      "status": 403
+    },
+    {
+      "phase": "private project creation",
+      "status": 201
+    },
+    {
+      "phase": "creator private project",
+      "status": 200
+    },
+    {
+      "phase": "trader manipulated project ID",
+      "status": 404
+    },
+    {
+      "phase": "trader private list",
+      "status": 200
+    },
+    {
+      "phase": "creator logout",
+      "status": 200
+    },
+    {
+      "phase": "revoked cookie projects",
+      "status": 401
+    },
+    {
+      "phase": "logged-out creator session",
+      "status": 200
+    },
+    {
+      "phase": "trader logout",
+      "status": 200
+    },
+    {
+      "phase": "creator fresh pool relogin challenge",
+      "status": 200
+    },
+    {
+      "phase": "creator fresh pool relogin verify",
+      "status": 200
+    },
+    {
+      "phase": "creator fresh pool relogin session",
+      "status": 200
+    },
+    {
+      "phase": "private project after reconnect",
+      "status": 200
+    },
+    {
+      "phase": "creator final logout",
+      "status": 200
+    }
+  ],
+  "signed_messages": 3,
+  "transactions_sent": 0,
+  "managed_auth_requests": 0,
+  "openrouter_requests": 0,
+  "s3_requests": 0,
+  "original_project_count": 1,
+  "migration": {
+    "name": "202610130005_wallet_auth.sql",
+    "sha256": "1e70fe162f29f73be05aab65d7d4cef99564e3ece3a8cbd2c7dced1f53d687e4",
+    "verified": true
+  },
+  "counts": {
+    "active_wallet_credentials": 2,
+    "wallet_only_sessions": 3,
+    "revoked_probe_sessions": 3,
+    "new_private_probe_projects": 1
+  },
+  "timestamp": "2026-10-13T07:31:16.259Z"
+}

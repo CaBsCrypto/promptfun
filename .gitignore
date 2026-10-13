@@ -18,3 +18,5 @@ target/
 /.agents/
 /skills-lock.json
 /.neon
+/graphify-out/cache/
+/graphify-out/.graphify*

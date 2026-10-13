@@ -1,0 +1,2585 @@
+{
+  "schema_version": "promptfun.audiovisual-reconciliation/2",
+  "revision": "v02",
+  "created_at_utc": "2026-10-13 06:51:17 UTC",
+  "updated_at_utc": "2026-10-13 07:30:50 UTC",
+  "current_verification": {
+    "application_tests": {
+      "passed": 104,
+      "failed": 0,
+      "skipped": 0,
+      "todo": 0,
+      "duration_seconds": 17.9052929,
+      "scope": "Suite completa post-wallet, cero fail/skip/todo; frozen install y lint/build PASS; supera el corte 89/4."
+    },
+    "playwright": {
+      "passed": 6,
+      "duration_seconds": 5.4,
+      "real_backend_smoke": 3,
+      "explicit_runtime_hostile_fixture": 1,
+      "wallet_entry_with_router_sql_and_extension_test_double": 2,
+      "personal_wallet_extensions_verified": false
+    },
+    "neon_infrastructure_private_storage": "passed",
+    "neon_restore_qa": {
+      "passed": true,
+      "projects": 1,
+      "versions": 2,
+      "tasks": 1,
+      "files": 1,
+      "file_bytes": 78,
+      "auth_or_inference_verified": false
+    },
+    "sbf": {
+      "program_id": "C2AEAUWXez38SBM7Hz7SmfZ8dd9WdefEvkXsKUPFNyvG",
+      "run_url": "https://github.com/CaBsCrypto/promptfun/actions/runs/38357606952",
+      "source_commit": "2012e1026dc49926894ed61f309fac84ba552e29",
+      "math_tests": 3,
+      "sbf_tests": 3,
+      "bytes": 317232,
+      "sha256": "868663ea636d4eb6e020e57460bf8780a27b13fd56bc234733f09ee405d4ea71",
+      "network_deployment_or_transactions_verified": false
+    }
+  },
+  "purpose": "Registro de reconciliación de fuentes existentes contra decisiones aprobadas; no guiones nuevos, edición de medios, re-render ni publicación.",
+  "publish_ready": false,
+  "human_deferral": {
+    "date": "2026-10-13",
+    "openrouter": "El usuario lo conectará después; continuar cierre de código/PRs.",
+    "devnet_deployment": "El usuario pidió dejar el despliegue pendiente.",
+    "gates_remain_open": true,
+    "integral_delivery_accepted": false
+  },
+  "app_entry_url": null,
+  "originals_preserved": true,
+  "drive_writes": false,
+  "media_bytes_changed": false,
+  "source_inventory": "../DRIVE_INVENTORY.md",
+  "approved_requirements": "../PRD.md",
+  "source_references": [
+    {
+      "drive_id": "1R_U-a4oqLe-2K_vZBHY2FDRT0MhzTTc9",
+      "title": "promptfun_80_manifest_v01.json",
+      "url": "https://drive.google.com/file/d/1R_U-a4oqLe-2K_vZBHY2FDRT0MhzTTc9/view?usp=drivesdk"
+    },
+    {
+      "drive_id": "19QHIdrNTkOVzS1H_KTj-io5wX0KW29y1",
+      "title": "promptfun_80_production_v01.csv",
+      "url": "https://drive.google.com/file/d/19QHIdrNTkOVzS1H_KTj-io5wX0KW29y1/view?usp=drivesdk"
+    },
+    {
+      "drive_id": "1e-IlPadXEb3orNn5iVIHPMy6aNZVSx-d",
+      "title": "Promptfun_160_manifest_control.json",
+      "url": "https://drive.google.com/file/d/1e-IlPadXEb3orNn5iVIHPMy6aNZVSx-d/view?usp=drivesdk"
+    },
+    {
+      "drive_id": "1bGdvM3wYNgNUcnF18hgqDR8tXdLxaA1u",
+      "title": "Promptfun_indice_Library_160_videos.json",
+      "url": "https://drive.google.com/file/d/1bGdvM3wYNgNUcnF18hgqDR8tXdLxaA1u/view?usp=drivesdk"
+    },
+    {
+      "drive_id": "1QNp-IX2YQbXz9Eezzw6bGmSbtbxxkeF8",
+      "title": "Promptfun_fuentes_pipeline_v01.zip",
+      "url": "https://drive.google.com/file/d/1QNp-IX2YQbXz9Eezzw6bGmSbtbxxkeF8/view?usp=drivesdk"
+    },
+    {
+      "drive_id": "11gDjcrXNY755JCtH_Mzq85ju9vi-M5bj",
+      "title": "Promptfun_controles_y_revision_visual.zip",
+      "url": "https://drive.google.com/file/d/11gDjcrXNY755JCtH_Mzq85ju9vi-M5bj/view?usp=drivesdk"
+    },
+    {
+      "drive_id": "161sy783Sl9aGcchF9QoyQgnt7mDh-6twvy5PyqcUdu4",
+      "title": "80 guiones para entrar a promptfun",
+      "url": "https://docs.google.com/document/d/161sy783Sl9aGcchF9QoyQgnt7mDh-6twvy5PyqcUdu4/edit?usp=drivesdk"
+    },
+    {
+      "drive_id": "1pzo5TwS19KJ-hUBWxyiBc6CFso-xE-BOAQPo_ULtZmc",
+      "title": "Plan de producción audiovisual y públicos",
+      "url": "https://docs.google.com/document/d/1pzo5TwS19KJ-hUBWxyiBc6CFso-xE-BOAQPo_ULtZmc/edit?usp=drivesdk"
+    }
+  ],
+  "coverage": {
+    "scripts": 80,
+    "formats_per_script": 2,
+    "mp4": 160,
+    "video_packages": 16,
+    "crc_verified_ux_production_zips": 19,
+    "crc_members": 296,
+    "mp4_sha256_size_matches": 160,
+    "conceptual_png_viewed": 3,
+    "sampled_video_frames": 16,
+    "sampled_frame_seconds": 9,
+    "full_video_audio_qa": false
+  },
+  "hash_provenance": {
+    "algorithm": "SHA-256",
+    "comparison_result": "160/160 MP4 sizes and digests matched control manifest during the original folder review.",
+    "literal_hashes_materialized_here": false,
+    "explanation": "Manifiestos v01 en Drive; no copia local ni hashes inventados en este registro."
+  },
+  "original_manifest80": {
+    "scope": "80 unique Spanish concepts authorized; 20 per audience; two aspect exports each. Files are scripts, not completed videos.",
+    "planned_exports": 160,
+    "app_entry_url": null,
+    "public_release_allowed": false
+  },
+  "approved_economics": {
+    "cluster": "devnet",
+    "token_decimals": 6,
+    "total_supply_tokens": "1000000000",
+    "curve_supply_tokens": "800000000",
+    "locked_supply_tokens": "200000000",
+    "protocol_fee": "0",
+    "curve_cap_lamports": "87912087913",
+    "curve_cap_sol": "87.912087913",
+    "curve_cap_is_market_capitalization": false,
+    "funding_is_separate": true,
+    "ai_credits_from_token_or_devnet_funding": false,
+    "revenue_rights": false,
+    "mainnet_authorized": false,
+    "graduation_or_dex": false
+  },
+  "findings": [
+    {
+      "id": "support_token",
+      "severity": "high",
+      "approved_requirement": "El token de proyecto es apoyo negociable Devnet, sin créditos IA, equity o derechos sobre ingresos.",
+      "affected_script_ids": [
+        "DEV07",
+        "FAN06",
+        "FAN11"
+      ],
+      "source_basis": "D01, D02, D09 del PRD actual; las fuentes v01 mantenían utilidad/derechos abiertos.",
+      "status": "textual_alignment_required_before_future_render"
+    },
+    {
+      "id": "funding_separation",
+      "severity": "high",
+      "approved_requirement": "La compra alimenta el vault de curva; el aporte directo va a la wallet del proyecto. Ningún SOL Devnet financia llamadas IA.",
+      "affected_script_ids": [
+        "DEV03",
+        "FAN02",
+        "FAN09"
+      ],
+      "source_basis": "DEV03 y FAN02 describen presupuesto de inferencia; FAN09 y anexo requieren separar registros. D04/D05 actuales no implementan ese presupuesto.",
+      "status": "textual_alignment_required_before_future_render"
+    },
+    {
+      "id": "free_openrouter",
+      "severity": "high",
+      "approved_requirement": "OAuth propio y modelo gratuito elegible sujeto a cuota/disponibilidad; no gratuidad ilimitada, generación garantizada o fallback pagado.",
+      "affected_script_ids": [
+        "DEV06",
+        "DEV15"
+      ],
+      "source_basis": "Anexo editorial del Doc de guiones; D06 y R03/R06 actuales.",
+      "status": "retain_qualified_language_live_validation_pending"
+    },
+    {
+      "id": "curve_cap",
+      "severity": "medium",
+      "approved_requirement": "Cap de venta 800.000.000 tokens; C(cap)=87.912087913 SOL, aproximadamente 87.912 SOL. No usar 85 SOL ni anunciar graduación.",
+      "affected_script_ids": [],
+      "source_basis": "Cálculo entero de shared/curve.ts; no se encontró 85 SOL en hook/message/voiceover del CSV v01.",
+      "status": "guard_for_future_revision_no_existing_occurrence_asserted"
+    },
+    {
+      "id": "devnet_only",
+      "severity": "high",
+      "approved_requirement": "Toda operación financiera de esta entrega es Solana Devnet; no anunciar Mainnet, dinero real, retorno, liquidez o mercado desplegado.",
+      "affected_script_ids": [
+        "FAN19"
+      ],
+      "source_basis": "D01/D03/D09 y G3/G4; CSV v01 no contiene Mainnet en hook/message/voiceover.",
+      "status": "retain_devnet_and_pending_operation_labels"
+    },
+    {
+      "id": "current_scope",
+      "severity": "medium",
+      "approved_requirement": "Tareas y archivos con backend acotado implementado; Auth/CRUD con usuarios reales y OpenRouter siguen pendientes de aceptación.",
+      "affected_script_ids": [
+        "DEV02",
+        "DEV06"
+      ],
+      "source_basis": "Anexo v01 describe backend como futuro; PRD actual incorpora Neon y capacidades acotadas.",
+      "status": "scope_label_review_required_before_future_render"
+    },
+    {
+      "id": "fees_and_authorities",
+      "severity": "medium",
+      "approved_requirement": "Comisión de protocolo 0; rent/tarifas de red sí. 80/20; mint authority revocada y sin freeze. Upgrade Devnet puede cambiar el programa.",
+      "affected_script_ids": [
+        "FAN11",
+        "FAN19"
+      ],
+      "source_basis": "D02/D04/D09 y tools/solana-operations.md; v01 mantiene derechos/oferta/comisiones en definición.",
+      "status": "devnet_rules_defined_live_operations_pending"
+    }
+  ],
+  "known_source_revision_drift": [
+    {
+      "id": "engine_manifest",
+      "description": "El manifiesto de 80 describe guiones y propuestas Remotion/Hyperframes; las fuentes posteriores usan Chromium/Playwright/FFmpeg.",
+      "status": "preserve_v01_record_drift"
+    },
+    {
+      "id": "palettes",
+      "description": "UX navy/cian/ámbar frente a cuatro paletas por audiencia en los vídeos.",
+      "status": "brand_alignment_pending"
+    }
+  ],
+  "release_blockers": [
+    "No URL pública validada; APP_ENTRY_URL permanece null.",
+    "No recorrido completo real de Auth/OpenRouter/app CRUD aceptado.",
+    "Despliegue y operaciones Devnet pendientes; artefacto actual aprobado en CI.",
+    "Reconciliar por ID las afirmaciones afectadas antes de un futuro render.",
+    "QA audiovisual completo de todos los vídeos, audio/textos/transiciones/formatos y disclosure pendiente."
+  ],
+  "packages": [
+    {
+      "drive_id": "1yo8A80Wu44RcVKWo2J-eHyIDqr_YSKdJ",
+      "title": "Promptfun_COM_01-05_10MP4.zip",
+      "url": "https://drive.google.com/file/d/1yo8A80Wu44RcVKWo2J-eHyIDqr_YSKdJ/view?usp=drivesdk",
+      "mp4_count": 10,
+      "crc_verified": true,
+      "sha256_size_match_count": 10,
+      "sampled_frame_seconds": 9,
+      "full_playback_reviewed": false
+    },
+    {
+      "drive_id": "1GkA16ZclfgPZZhu2yMXTGdrzmsD3mHSk",
+      "title": "Promptfun_COM_06-10_10MP4.zip",
+      "url": "https://drive.google.com/file/d/1GkA16ZclfgPZZhu2yMXTGdrzmsD3mHSk/view?usp=drivesdk",
+      "mp4_count": 10,
+      "crc_verified": true,
+      "sha256_size_match_count": 10,
+      "sampled_frame_seconds": 9,
+      "full_playback_reviewed": false
+    },
+    {
+      "drive_id": "13RnoUioZiSfNC0Mk0vW0X2TB2O7TcdHN",
+      "title": "Promptfun_COM_11-15_10MP4.zip",
+      "url": "https://drive.google.com/file/d/13RnoUioZiSfNC0Mk0vW0X2TB2O7TcdHN/view?usp=drivesdk",
+      "mp4_count": 10,
+      "crc_verified": true,
+      "sha256_size_match_count": 10,
+      "sampled_frame_seconds": 9,
+      "full_playback_reviewed": false
+    },
+    {
+      "drive_id": "1n_9BafncWAEn6tFU-mlHxUnJtzG8lHCf",
+      "title": "Promptfun_COM_16-20_10MP4.zip",
+      "url": "https://drive.google.com/file/d/1n_9BafncWAEn6tFU-mlHxUnJtzG8lHCf/view?usp=drivesdk",
+      "mp4_count": 10,
+      "crc_verified": true,
+      "sha256_size_match_count": 10,
+      "sampled_frame_seconds": 9,
+      "full_playback_reviewed": false
+    },
+    {
+      "drive_id": "12pfnIRWbKsh7fawnMQnJBNn723YFkE0G",
+      "title": "Promptfun_DEV_01-05_10MP4.zip",
+      "url": "https://drive.google.com/file/d/12pfnIRWbKsh7fawnMQnJBNn723YFkE0G/view?usp=drivesdk",
+      "mp4_count": 10,
+      "crc_verified": true,
+      "sha256_size_match_count": 10,
+      "sampled_frame_seconds": 9,
+      "full_playback_reviewed": false
+    },
+    {
+      "drive_id": "1cGb3sDtD_EHkhuVAjLeoIyd9wHGv24F3",
+      "title": "Promptfun_DEV_06-10_10MP4.zip",
+      "url": "https://drive.google.com/file/d/1cGb3sDtD_EHkhuVAjLeoIyd9wHGv24F3/view?usp=drivesdk",
+      "mp4_count": 10,
+      "crc_verified": true,
+      "sha256_size_match_count": 10,
+      "sampled_frame_seconds": 9,
+      "full_playback_reviewed": false
+    },
+    {
+      "drive_id": "1fx0Rb_6qfxyuxMtzySVG0iyWUaEgFGnr",
+      "title": "Promptfun_DEV_11-15_10MP4.zip",
+      "url": "https://drive.google.com/file/d/1fx0Rb_6qfxyuxMtzySVG0iyWUaEgFGnr/view?usp=drivesdk",
+      "mp4_count": 10,
+      "crc_verified": true,
+      "sha256_size_match_count": 10,
+      "sampled_frame_seconds": 9,
+      "full_playback_reviewed": false
+    },
+    {
+      "drive_id": "1R-4KLhoYwwUyNcdrjemXS-GVAzFUqz1p",
+      "title": "Promptfun_DEV_16-20_10MP4.zip",
+      "url": "https://drive.google.com/file/d/1R-4KLhoYwwUyNcdrjemXS-GVAzFUqz1p/view?usp=drivesdk",
+      "mp4_count": 10,
+      "crc_verified": true,
+      "sha256_size_match_count": 10,
+      "sampled_frame_seconds": 9,
+      "full_playback_reviewed": false
+    },
+    {
+      "drive_id": "1PzNBUUHtKZFHbcxfvg66DPyCBGyIxvDD",
+      "title": "Promptfun_EMP_01-05_10MP4.zip",
+      "url": "https://drive.google.com/file/d/1PzNBUUHtKZFHbcxfvg66DPyCBGyIxvDD/view?usp=drivesdk",
+      "mp4_count": 10,
+      "crc_verified": true,
+      "sha256_size_match_count": 10,
+      "sampled_frame_seconds": 9,
+      "full_playback_reviewed": false
+    },
+    {
+      "drive_id": "1X5QTxP-qLO0ox4xO0AvggXkjXjIWSUjY",
+      "title": "Promptfun_EMP_06-10_10MP4.zip",
+      "url": "https://drive.google.com/file/d/1X5QTxP-qLO0ox4xO0AvggXkjXjIWSUjY/view?usp=drivesdk",
+      "mp4_count": 10,
+      "crc_verified": true,
+      "sha256_size_match_count": 10,
+      "sampled_frame_seconds": 9,
+      "full_playback_reviewed": false
+    },
+    {
+      "drive_id": "1PhnJ1VYQcuKe2QhtB9tAJ9I6UFv3ku1i",
+      "title": "Promptfun_EMP_11-15_10MP4.zip",
+      "url": "https://drive.google.com/file/d/1PhnJ1VYQcuKe2QhtB9tAJ9I6UFv3ku1i/view?usp=drivesdk",
+      "mp4_count": 10,
+      "crc_verified": true,
+      "sha256_size_match_count": 10,
+      "sampled_frame_seconds": 9,
+      "full_playback_reviewed": false
+    },
+    {
+      "drive_id": "1deHVvGN0lFiOL6ss72BaBBMwa5u7ScoW",
+      "title": "Promptfun_EMP_16-20_10MP4.zip",
+      "url": "https://drive.google.com/file/d/1deHVvGN0lFiOL6ss72BaBBMwa5u7ScoW/view?usp=drivesdk",
+      "mp4_count": 10,
+      "crc_verified": true,
+      "sha256_size_match_count": 10,
+      "sampled_frame_seconds": 9,
+      "full_playback_reviewed": false
+    },
+    {
+      "drive_id": "1ml1g87VleLFRIZRDKS692iDTtAiIwN74",
+      "title": "Promptfun_FAN_01-05_10MP4.zip",
+      "url": "https://drive.google.com/file/d/1ml1g87VleLFRIZRDKS692iDTtAiIwN74/view?usp=drivesdk",
+      "mp4_count": 10,
+      "crc_verified": true,
+      "sha256_size_match_count": 10,
+      "sampled_frame_seconds": 9,
+      "full_playback_reviewed": false
+    },
+    {
+      "drive_id": "1T4KMUWCQk5CPgY_G9wN_T5ZI819dDN8B",
+      "title": "Promptfun_FAN_06-10_10MP4.zip",
+      "url": "https://drive.google.com/file/d/1T4KMUWCQk5CPgY_G9wN_T5ZI819dDN8B/view?usp=drivesdk",
+      "mp4_count": 10,
+      "crc_verified": true,
+      "sha256_size_match_count": 10,
+      "sampled_frame_seconds": 9,
+      "full_playback_reviewed": false
+    },
+    {
+      "drive_id": "11ZvxHDKRH4zLyGqkBbiMiDd_1AqWNYkO",
+      "title": "Promptfun_FAN_11-15_10MP4.zip",
+      "url": "https://drive.google.com/file/d/11ZvxHDKRH4zLyGqkBbiMiDd_1AqWNYkO/view?usp=drivesdk",
+      "mp4_count": 10,
+      "crc_verified": true,
+      "sha256_size_match_count": 10,
+      "sampled_frame_seconds": 9,
+      "full_playback_reviewed": false
+    },
+    {
+      "drive_id": "1c9yaNOeu_jUgpHI9n2qVnzVT3PmFkg_Z",
+      "title": "Promptfun_FAN_16-20_10MP4.zip",
+      "url": "https://drive.google.com/file/d/1c9yaNOeu_jUgpHI9n2qVnzVT3PmFkg_Z/view?usp=drivesdk",
+      "mp4_count": 10,
+      "crc_verified": true,
+      "sha256_size_match_count": 10,
+      "sampled_frame_seconds": 9,
+      "full_playback_reviewed": false
+    }
+  ],
+  "assets": [
+    {
+      "script_id": "DEV01",
+      "title": "Un avance que se entiende",
+      "audience": "Creadores y desarrolladores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "DEV01_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "DEV01_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "DEV02",
+      "title": "Tu juego puede ser cualquier juego",
+      "audience": "Creadores y desarrolladores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "DEV02_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "DEV02_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": [
+        "current_scope"
+      ]
+    },
+    {
+      "script_id": "DEV03",
+      "title": "Presupuesto para seguir",
+      "audience": "Creadores y desarrolladores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "DEV03_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "DEV03_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": [
+        "funding_separation"
+      ]
+    },
+    {
+      "script_id": "DEV04",
+      "title": "Mostrar con control",
+      "audience": "Creadores y desarrolladores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "DEV04_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "DEV04_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "DEV05",
+      "title": "Una demo honesta",
+      "audience": "Creadores y desarrolladores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "DEV05_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "DEV05_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "DEV06",
+      "title": "Una función suficiente",
+      "audience": "Creadores y desarrolladores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "DEV06_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "DEV06_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": [
+        "free_openrouter",
+        "current_scope"
+      ]
+    },
+    {
+      "script_id": "DEV07",
+      "title": "Nombres que no se mezclan",
+      "audience": "Creadores y desarrolladores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "DEV07_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "DEV07_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": [
+        "support_token"
+      ]
+    },
+    {
+      "script_id": "DEV08",
+      "title": "Feedback sobre algo visible",
+      "audience": "Creadores y desarrolladores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "DEV08_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "DEV08_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "DEV09",
+      "title": "Volver al proyecto",
+      "audience": "Creadores y desarrolladores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "DEV09_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "DEV09_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "DEV10",
+      "title": "Versiones con una razón",
+      "audience": "Creadores y desarrolladores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "DEV10_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "DEV10_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "DEV11",
+      "title": "Primero que funcione",
+      "audience": "Creadores y desarrolladores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "DEV11_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "DEV11_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "DEV12",
+      "title": "Una red elegida",
+      "audience": "Creadores y desarrolladores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "DEV12_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "DEV12_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "DEV13",
+      "title": "Un proyecto explicable",
+      "audience": "Creadores y desarrolladores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "DEV13_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "DEV13_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "DEV14",
+      "title": "Tu proceso cuenta",
+      "audience": "Creadores y desarrolladores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "DEV14_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "DEV14_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "DEV15",
+      "title": "Un recibo comprensible",
+      "audience": "Creadores y desarrolladores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "DEV15_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "DEV15_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": [
+        "free_openrouter"
+      ]
+    },
+    {
+      "script_id": "DEV16",
+      "title": "Aprender del bloqueo",
+      "audience": "Creadores y desarrolladores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "DEV16_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "DEV16_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "DEV17",
+      "title": "Privacidad en el centro",
+      "audience": "Creadores y desarrolladores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "DEV17_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "DEV17_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "DEV18",
+      "title": "Tu voz de creador",
+      "audience": "Creadores y desarrolladores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "DEV18_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "DEV18_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "DEV19",
+      "title": "Siguiente paso acotado",
+      "audience": "Creadores y desarrolladores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "DEV19_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "DEV19_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "DEV20",
+      "title": "De la curiosidad a la app",
+      "audience": "Creadores y desarrolladores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "DEV20_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "DEV20_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "FAN01",
+      "title": "La prueba detrás de la idea",
+      "audience": "Fans y posibles compradores de tokens",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "FAN01_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "FAN01_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "FAN02",
+      "title": "Apoyo con destino claro",
+      "audience": "Fans y posibles compradores de tokens",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "FAN02_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "FAN02_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": [
+        "funding_separation"
+      ]
+    },
+    {
+      "script_id": "FAN03",
+      "title": "La compra secundaria",
+      "audience": "Fans y posibles compradores de tokens",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "FAN03_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "FAN03_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "FAN04",
+      "title": "Mirar más allá del precio",
+      "audience": "Fans y posibles compradores de tokens",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "FAN04_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "FAN04_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "FAN05",
+      "title": "Una pregunta útil",
+      "audience": "Fans y posibles compradores de tokens",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "FAN05_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "FAN05_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "FAN06",
+      "title": "Tokens LLM en claro",
+      "audience": "Fans y posibles compradores de tokens",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "FAN06_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "FAN06_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": [
+        "support_token"
+      ]
+    },
+    {
+      "script_id": "FAN07",
+      "title": "Una comunidad sin inventar cifras",
+      "audience": "Fans y posibles compradores de tokens",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "FAN07_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "FAN07_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "FAN08",
+      "title": "Privacidad del creador",
+      "audience": "Fans y posibles compradores de tokens",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "FAN08_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "FAN08_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "FAN09",
+      "title": "Un saldo tiene una historia",
+      "audience": "Fans y posibles compradores de tokens",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "FAN09_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "FAN09_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": [
+        "funding_separation"
+      ]
+    },
+    {
+      "script_id": "FAN10",
+      "title": "Una transacción no lo prueba todo",
+      "audience": "Fans y posibles compradores de tokens",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "FAN10_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "FAN10_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "FAN11",
+      "title": "Participar sin asumir derechos",
+      "audience": "Fans y posibles compradores de tokens",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "FAN11_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "FAN11_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": [
+        "support_token",
+        "fees_and_authorities"
+      ]
+    },
+    {
+      "script_id": "FAN12",
+      "title": "No todo apoyo es una inversión",
+      "audience": "Fans y posibles compradores de tokens",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "FAN12_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "FAN12_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "FAN13",
+      "title": "El siguiente paso del creador",
+      "audience": "Fans y posibles compradores de tokens",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "FAN13_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "FAN13_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "FAN14",
+      "title": "Proyectos que puedes reconocer",
+      "audience": "Fans y posibles compradores de tokens",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "FAN14_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "FAN14_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "FAN15",
+      "title": "Atención con criterio",
+      "audience": "Fans y posibles compradores de tokens",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "FAN15_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "FAN15_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "FAN16",
+      "title": "El consumo explicado",
+      "audience": "Fans y posibles compradores de tokens",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "FAN16_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "FAN16_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "FAN17",
+      "title": "Sin prisa artificial",
+      "audience": "Fans y posibles compradores de tokens",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "FAN17_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "FAN17_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "FAN18",
+      "title": "Sigue a quien construye",
+      "audience": "Fans y posibles compradores de tokens",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "FAN18_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "FAN18_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "FAN19",
+      "title": "Preguntas antes de fondos",
+      "audience": "Fans y posibles compradores de tokens",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "FAN19_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "FAN19_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": [
+        "devnet_only",
+        "fees_and_authorities"
+      ]
+    },
+    {
+      "script_id": "FAN20",
+      "title": "Entrar para comprender",
+      "audience": "Fans y posibles compradores de tokens",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "FAN20_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "FAN20_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "EMP01",
+      "title": "Un problema bien elegido",
+      "audience": "Empresas con retos",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "EMP01_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "EMP01_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "EMP02",
+      "title": "Una frase para el problema",
+      "audience": "Empresas con retos",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "EMP02_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "EMP02_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "EMP03",
+      "title": "Criterios antes de competir",
+      "audience": "Empresas con retos",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "EMP03_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "EMP03_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "EMP04",
+      "title": "Datos que se pueden compartir",
+      "audience": "Empresas con retos",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "EMP04_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "EMP04_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "EMP05",
+      "title": "Un alcance pequeño",
+      "audience": "Empresas con retos",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "EMP05_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "EMP05_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "EMP06",
+      "title": "Quién usará la solución",
+      "audience": "Empresas con retos",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "EMP06_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "EMP06_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "EMP07",
+      "title": "Del reto a una demostración",
+      "audience": "Empresas con retos",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "EMP07_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "EMP07_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "EMP08",
+      "title": "Un presupuesto explicado",
+      "audience": "Empresas con retos",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "EMP08_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "EMP08_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "EMP09",
+      "title": "Derechos sobre la solución",
+      "audience": "Empresas con retos",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "EMP09_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "EMP09_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "EMP10",
+      "title": "Una restricción útil",
+      "audience": "Empresas con retos",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "EMP10_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "EMP10_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "EMP11",
+      "title": "Un reto no es siempre un concurso",
+      "audience": "Empresas con retos",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "EMP11_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "EMP11_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "EMP12",
+      "title": "Quien decide la aceptación",
+      "audience": "Empresas con retos",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "EMP12_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "EMP12_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "EMP13",
+      "title": "El problema de hoy",
+      "audience": "Empresas con retos",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "EMP13_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "EMP13_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "EMP14",
+      "title": "Un caso de prueba seguro",
+      "audience": "Empresas con retos",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "EMP14_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "EMP14_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "EMP15",
+      "title": "Comparar propuestas",
+      "audience": "Empresas con retos",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "EMP15_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "EMP15_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "EMP16",
+      "title": "Más allá de la demo",
+      "audience": "Empresas con retos",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "EMP16_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "EMP16_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "EMP17",
+      "title": "Sin prometer ahorro",
+      "audience": "Empresas con retos",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "EMP17_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "EMP17_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "EMP18",
+      "title": "Interés antes de construir más",
+      "audience": "Empresas con retos",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "EMP18_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "EMP18_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "EMP19",
+      "title": "La empresa y el creador",
+      "audience": "Empresas con retos",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "EMP19_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "EMP19_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "EMP20",
+      "title": "Una puerta a la fase siguiente",
+      "audience": "Empresas con retos",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "EMP20_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "EMP20_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "COM01",
+      "title": "Qué está construyendo la comunidad",
+      "audience": "Comunidades y organizadores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "COM01_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "COM01_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "COM02",
+      "title": "Una demo como punto de encuentro",
+      "audience": "Comunidades y organizadores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "COM02_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "COM02_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "COM03",
+      "title": "Curar con una razón",
+      "audience": "Comunidades y organizadores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "COM03_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "COM03_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "COM04",
+      "title": "Preguntas que ayudan",
+      "audience": "Comunidades y organizadores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "COM04_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "COM04_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "COM05",
+      "title": "Un resumen que no exagera",
+      "audience": "Comunidades y organizadores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "COM05_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "COM05_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "COM06",
+      "title": "Descubrir fuera de tu nicho",
+      "audience": "Comunidades y organizadores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "COM06_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "COM06_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "COM07",
+      "title": "Feedback con respeto",
+      "audience": "Comunidades y organizadores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "COM07_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "COM07_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "COM08",
+      "title": "Una sesión sin montar un estudio",
+      "audience": "Comunidades y organizadores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "COM08_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "COM08_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "COM09",
+      "title": "Una misión compartida",
+      "audience": "Comunidades y organizadores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "COM09_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "COM09_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "COM10",
+      "title": "El tiempo de un concurso",
+      "audience": "Comunidades y organizadores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "COM10_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "COM10_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "COM11",
+      "title": "Retos y concursos separados",
+      "audience": "Comunidades y organizadores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "COM11_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "COM11_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "COM12",
+      "title": "La etiqueta que cambia la lectura",
+      "audience": "Comunidades y organizadores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "COM12_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "COM12_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "COM13",
+      "title": "Compartir sin exponer",
+      "audience": "Comunidades y organizadores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "COM13_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "COM13_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "COM14",
+      "title": "La señal detrás del ruido",
+      "audience": "Comunidades y organizadores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "COM14_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "COM14_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "COM15",
+      "title": "Una comunidad sobre una red",
+      "audience": "Comunidades y organizadores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "COM15_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "COM15_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "COM16",
+      "title": "El creador decide qué cuenta",
+      "audience": "Comunidades y organizadores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "COM16_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "COM16_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "COM17",
+      "title": "Un lugar para el siguiente paso",
+      "audience": "Comunidades y organizadores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "COM17_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "COM17_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "COM18",
+      "title": "Empezar con un grupo pequeño",
+      "audience": "Comunidades y organizadores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "COM18_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "COM18_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "COM19",
+      "title": "Cuidar el espacio compartido",
+      "audience": "Comunidades y organizadores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "COM19_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "COM19_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    },
+    {
+      "script_id": "COM20",
+      "title": "La entrada a la conversación",
+      "audience": "Comunidades y organizadores",
+      "original_publication_status": "BORRADOR PRIVADO. URL y producto pendientes de verificar",
+      "formats": [
+        {
+          "file_name": "COM20_v01_9x16_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        },
+        {
+          "file_name": "COM20_v01_16x9_es_borrador.mp4",
+          "original_revision": "v01",
+          "bytes_changed": false,
+          "sha256_value": null,
+          "sha256_values_source": "Promptfun_160_manifest_control.json in Drive",
+          "publish_ready": false,
+          "full_playback_qa": "pending"
+        }
+      ],
+      "reconciliation_rules": []
+    }
+  ]
+}

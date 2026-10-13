@@ -1,0 +1,200 @@
+{
+  "node_count": 895,
+  "unverified_node_count": 0,
+  "raw_edge_count": 2510,
+  "non_object_edges": 0,
+  "missing_endpoint_edges": 0,
+  "dangling_endpoint_edges": 140,
+  "self_loop_edges": 1,
+  "valid_candidate_edges": 2370,
+  "exact_duplicate_edges": 15,
+  "directed_unique_endpoint_pairs": 2294,
+  "directed_same_endpoint_collapsed_edges": 76,
+  "undirected_unique_endpoint_pairs": 2286,
+  "undirected_same_endpoint_collapsed_edges": 84,
+  "same_endpoint_group_count": 60,
+  "relation_variant_groups": 25,
+  "source_file_variant_groups": 0,
+  "source_location_variant_groups": 30,
+  "context_variant_groups": 0,
+  "post_build_graph_type": "Graph",
+  "post_build_node_count": 895,
+  "post_build_edge_count": 2287,
+  "post_build_error": "",
+  "producer_suppression": {
+    "path": "C:\\Users\\MGC\\.local\\share\\graphify-runtime\\Lib\\site-packages\\graphify\\extract.py",
+    "total_sites": 12,
+    "sites": [
+      {
+        "line": 1204,
+        "name": "seen_ids",
+        "tuple_arity": 0,
+        "sample": "seen_ids = {n[\"id\"] for n in nodes}"
+      },
+      {
+        "line": 1685,
+        "name": "seen_ids",
+        "tuple_arity": 0,
+        "sample": "seen_ids = {n[\"id\"] for n in nodes}"
+      },
+      {
+        "line": 1687,
+        "name": "seen_doc_refs",
+        "tuple_arity": 0,
+        "sample": "seen_doc_refs: set[str] = set()"
+      },
+      {
+        "line": 2052,
+        "name": "seen_ids",
+        "tuple_arity": 0,
+        "sample": "seen_ids: set[str] = {n[\"id\"] for n in nodes}"
+      },
+      {
+        "line": 2199,
+        "name": "seen_ids",
+        "tuple_arity": 0,
+        "sample": "seen_ids = {n.get(\"id\") for n in nodes}"
+      },
+      {
+        "line": 2837,
+        "name": "seen_keys",
+        "tuple_arity": 0,
+        "sample": "seen_keys: set[tuple] = set()"
+      },
+      {
+        "line": 3006,
+        "name": "seen_keys",
+        "tuple_arity": 0,
+        "sample": "seen_keys: set[tuple] = set()"
+      },
+      {
+        "line": 4698,
+        "name": "seen_ids",
+        "tuple_arity": 0,
+        "sample": "seen_ids: set[str] = set()"
+      },
+      {
+        "line": 4806,
+        "name": "seen_ids",
+        "tuple_arity": 0,
+        "sample": "seen_ids: set[str] = set()"
+      },
+      {
+        "line": 4885,
+        "name": "seen_ids",
+        "tuple_arity": 0,
+        "sample": "seen_ids: set[str] = set()"
+      },
+      {
+        "line": 5400,
+        "name": "seen_ids",
+        "tuple_arity": 0,
+        "sample": "seen_ids: set[str] = set()"
+      },
+      {
+        "line": 5401,
+        "name": "seen_edges",
+        "tuple_arity": 4,
+        "sample": "seen_edges: set[tuple[str, str, str, str | None]] = set()"
+      }
+    ],
+    "error": ""
+  },
+  "examples": [
+    {
+      "source": "programs_market_tests_src_lib_harness",
+      "target": "address",
+      "edge_count": 7,
+      "relations": [
+        "references"
+      ],
+      "source_files": [
+        "programs/market-tests/src/lib.rs"
+      ],
+      "source_locations": [
+        "L24",
+        "L25"
+      ],
+      "contexts": [
+        "field"
+      ]
+    },
+    {
+      "source": "programs_promptfun_market_src_lib_registerproject",
+      "target": "account",
+      "edge_count": 5,
+      "relations": [
+        "references"
+      ],
+      "source_files": [
+        "programs/promptfun-market/src/lib.rs"
+      ],
+      "source_locations": [
+        "L141",
+        "L144",
+        "L147",
+        "L150",
+        "L153"
+      ],
+      "contexts": [
+        "field"
+      ]
+    },
+    {
+      "source": "programs_promptfun_market_src_lib_trade",
+      "target": "account",
+      "edge_count": 5,
+      "relations": [
+        "references"
+      ],
+      "source_files": [
+        "programs/promptfun-market/src/lib.rs"
+      ],
+      "source_locations": [
+        "L161",
+        "L164",
+        "L165",
+        "L167",
+        "L168"
+      ],
+      "contexts": [
+        "field"
+      ]
+    },
+    {
+      "source": "programs_market_tests_src_lib_harness",
+      "target": "keypair",
+      "edge_count": 4,
+      "relations": [
+        "references"
+      ],
+      "source_files": [
+        "programs/market-tests/src/lib.rs"
+      ],
+      "source_locations": [
+        "L24"
+      ],
+      "contexts": [
+        "field"
+      ]
+    },
+    {
+      "source": "programs_promptfun_market_src_lib_market",
+      "target": "pubkey",
+      "edge_count": 4,
+      "relations": [
+        "references"
+      ],
+      "source_files": [
+        "programs/promptfun-market/src/lib.rs"
+      ],
+      "source_locations": [
+        "L177",
+        "L178"
+      ],
+      "contexts": [
+        "field"
+      ]
+    }
+  ]
+}

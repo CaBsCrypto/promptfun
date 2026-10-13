@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-13",
+  "scope": "CI native mathematics and genuine SBF execution; no deployment or Devnet trades",
+  "program_id": "C2AEAUWXez38SBM7Hz7SmfZ8dd9WdefEvkXsKUPFNyvG",
+  "source_commit": "2012e1026dc49926894ed61f309fac84ba552e29",
+  "run_url": "https://github.com/CaBsCrypto/promptfun/actions/runs/38357606952",
+  "artifact_id": 11794310793,
+  "binary_bytes": 317232,
+  "binary_sha256": "868663ea636d4eb6e020e57460bf8780a27b13fd56bc234733f09ee405d4ea71",
+  "elf_machine": 247,
+  "sbf_architecture": "v3",
+  "idl_program_id_verified": true,
+  "native_math_tests_passed": 3,
+  "genuine_sbf_tests_passed": 3,
+  "pinned_image": "quay.io/ottersec/anchor:v1.2.1@sha256:23f988d1b817160b5514faa19bc50e77d41c4ff9aeccce94c9856696e20f8fed",
+  "dry_run": {
+    "genesis_verified": true,
+    "submitted": false,
+    "required_lamports": "1617320520",
+    "payer_balance_lamports": "0"
+  },
+  "acceptance": {
+    "deployed": false,
+    "market_created_on_devnet": false,
+    "buy_verified_on_devnet": false,
+    "sell_verified_on_devnet": false,
+    "contribution_verified_on_devnet": false
+  }
+}

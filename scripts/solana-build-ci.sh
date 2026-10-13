@@ -24,9 +24,9 @@ cd "$PF_BUILD"
 cargo test -p promptfun-market --lib --locked
 # The SBF builder and IDL builder accept different argument separators. Never
 # forward SBF's Cargo separator into the IDL cargo-test harness.
-anchor build --no-idl --ignore-keys --tools-version v1.57 --arch v3 -- -- --locked
+anchor build --program-name promptfun_market --no-idl --ignore-keys --tools-version v1.57 --arch v3 -- -- --locked
 mkdir -p target/idl
-anchor idl build --out target/idl/promptfun_market.json -- --locked
+anchor idl build --program-name promptfun_market --out target/idl/promptfun_market.json -- --locked
 cargo test --manifest-path programs/market-tests/Cargo.toml --locked
 cp target/deploy/promptfun_market.so "$PF_OUT/promptfun_market.so"
 cp target/idl/promptfun_market.json "$PF_OUT/promptfun_market.json"

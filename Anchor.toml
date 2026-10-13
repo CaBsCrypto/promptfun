@@ -5,6 +5,12 @@ anchor_version = "1.2.1"
 resolution = true
 skip-lint = false
 
+# Anchor discovers programs independently from Cargo's workspace. Keep the host
+# LiteSVM harness outside SBF/IDL discovery as well as outside Cargo's program workspace.
+[workspace]
+members = ["programs/promptfun-market"]
+exclude = ["programs/market-tests"]
+
 [programs.localnet]
 promptfun_market = "C6hCYFeBUkUruFgMkSz2EPVfLR4KnBVxWgGZcSFWzUJf"
 

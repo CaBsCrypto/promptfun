@@ -9,7 +9,7 @@ permissions:
 jobs:
   solana:
     runs-on: ubuntu-latest
-    container: quay.io/ottersec/anchor:v1.2.1
+    container: quay.io/ottersec/anchor:v1.2.1@sha256:23f988d1b817160b5514faa19bc50e77d41c4ff9aeccce94c9856696e20f8fed
     steps:
       - uses: actions/checkout@v4
       - name: Build program and run genuine SBF tests

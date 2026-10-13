@@ -5,6 +5,8 @@ PF_BUILD="$(mktemp -d -t promptfun-build.XXXXXX)"
 PF_OUT="${SOLANA_BUILD_OUTPUT:-$PF_REPO/.local/solana-artifacts}"
 trap 'rm -rf "$PF_BUILD"' EXIT
 anchor --version | grep -F '1.2.1'
+rustup toolchain install 1.94.0 --profile minimal
+export RUSTUP_TOOLCHAIN=1.94.0
 mkdir -p "$PF_BUILD/programs/promptfun-market" "$PF_BUILD/programs/market-tests" "$PF_OUT"
 cp "$PF_REPO/Cargo.toml" "$PF_REPO/Cargo.lock" "$PF_REPO/Anchor.toml" "$PF_BUILD/"
 cp "$PF_REPO/programs/promptfun-market/Cargo.toml" "$PF_BUILD/programs/promptfun-market/"

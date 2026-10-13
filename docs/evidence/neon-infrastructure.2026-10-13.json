@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-13T07:29:51.793Z",
+  "provider": "neon",
+  "independent_databases": true,
+  "live": true,
+  "control": {
+    "tables": [
+      "app_versions",
+      "auth_flows",
+      "feedback",
+      "free_quota_days",
+      "funding_intents",
+      "generation_attempts",
+      "generation_jobs",
+      "market_quotes",
+      "markets",
+      "migration_batches",
+      "platform_mutation_receipts",
+      "platform_sessions",
+      "platform_users",
+      "project_wallet_bindings",
+      "project_wallet_challenges",
+      "projects",
+      "provider_connections",
+      "publication_history",
+      "solana_transactions",
+      "usage_receipts",
+      "wallet_auth_challenges",
+      "wallet_credentials"
+    ],
+    "rls_enabled": true,
+    "managed_identity": true
+  },
+  "apps": {
+    "tables": [
+      "app_files",
+      "app_instances",
+      "app_memberships",
+      "app_mutation_receipts",
+      "app_records",
+      "app_sessions",
+      "app_users"
+    ],
+    "rls_enabled": true,
+    "managed_identity": true
+  },
+  "storage": {
+    "put_get_verified": true,
+    "sha256_verified": true,
+    "anonymous_read_denied": 403
+  }
+}

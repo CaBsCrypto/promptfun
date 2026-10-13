@@ -1,0 +1,20 @@
+import 'dotenv/config';
+import { isOutsideDirectory } from '../server/market/key-files.js';
+import { readFileSync, realpathSync } from 'node:fs';
+import { resolve, isAbsolute } from 'node:path';
+import { Connection, Keypair, PublicKey, Transaction, TransactionInstruction } from '@solana/web3.js';
+import { assertDevnet, discriminator } from '../server/market/chain.js';
+const root=realpathSync(resolve(import.meta.dirname,'..')),args=process.argv.slice(2);
+const keyPath=args[0];if(!keyPath||!isAbsolute(keyPath)||!process.env.MARKET_PROGRAM_ID||args.includes('--pause')===args.includes('--resume'))throw new Error('Usage: bun scripts/solana-configure.ts EXTERNAL_CONFIG_AUTHORITY --pause|--resume [--registrar PUBKEY] [--submit]');
+const path=realpathSync(keyPath);if(!isOutsideDirectory(root,path))throw new Error('Operator keys must remain outside the repository.');
+const authority=Keypair.fromSecretKey(Uint8Array.from(JSON.parse(readFileSync(path,'utf8')))),program=new PublicKey(process.env.MARKET_PROGRAM_ID);
+const connection=new Connection(process.env.SOLANA_RPC_URL||'https://api.devnet.solana.com','confirmed');await assertDevnet(connection);
+const config=PublicKey.findProgramAddressSync([Buffer.from('config')],program)[0],account=await connection.getAccountInfo(config,'finalized');
+if(!account?.owner.equals(program)||account.data.length!==74||!account.data.subarray(0,8).equals(discriminator('account','MarketConfig'))||!account.data.subarray(8,40).equals(authority.publicKey.toBuffer()))throw new Error('The supplied key is not the current config authority.');
+const registrarIndex=args.indexOf('--registrar'),registrar=registrarIndex>=0?new PublicKey(args[registrarIndex+1]):new PublicKey(account.data.subarray(40,72));
+const tx=new Transaction().add(new TransactionInstruction({programId:program,data:Buffer.concat([discriminator('global','configure'),registrar.toBuffer(),Buffer.from([args.includes('--pause')?1:0])]),keys:[{pubkey:authority.publicKey,isSigner:true,isWritable:false},{pubkey:config,isSigner:false,isWritable:true}]}));
+tx.feePayer=authority.publicKey;const latest=await connection.getLatestBlockhash('confirmed');tx.recentBlockhash=latest.blockhash;
+if(args.includes('--submit')) {
+  tx.sign(authority);const signature=await connection.sendRawTransaction(tx.serialize());const result=await connection.confirmTransaction({...latest,signature},'finalized');
+  if(result.value.err)throw new Error('Config update failed.');process.stdout.write(`Config updated on Devnet: ${signature}\n`);
+}else process.stdout.write(`Prepared only. No transaction sent.\nTransaction: ${tx.serialize({requireAllSignatures:false,verifySignatures:false}).toString('base64')}\n`);

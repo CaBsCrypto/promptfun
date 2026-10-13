@@ -1,0 +1,28 @@
+{
+  "test": "Neon QA SQL and S3 backup/restore",
+  "auth_verified": false,
+  "inference_sent": false,
+  "financial_records_created": false,
+  "source_s3_put_get": true,
+  "result": "PASS",
+  "counts": {
+    "projects": 1,
+    "app_versions": 2,
+    "publication_history": 1,
+    "platform_mutation_receipts": 1,
+    "platform_sessions": 0,
+    "provider_connections": 0,
+    "generation_jobs": 0,
+    "solana_transactions": 0,
+    "app_users": 1,
+    "app_records": 1,
+    "app_files": 1,
+    "app_mutation_receipts": 1,
+    "app_sessions": 0
+  },
+  "artifact_hashes_verified": 2,
+  "file_sha256": "0b4a2a7f71d08898ec738fb4b40f5df076633ef39f29a0fcd9fd858250a29cd4",
+  "file_bytes": 78,
+  "nonempty_target_rejected": true,
+  "timestamp": "2026-10-13T06:37:06.153Z"
+}

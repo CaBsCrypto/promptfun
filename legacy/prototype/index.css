@@ -1,0 +1,206 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Light Mode Styles (Pantalla Clara) */
+html.light,
+html:not(.dark) {
+  color-scheme: light;
+}
+
+html.light body,
+html:not(.dark) body {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+html.light ::-webkit-scrollbar-track,
+html:not(.dark) ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+html.light ::-webkit-scrollbar-thumb,
+html:not(.dark) ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+
+html.light ::-webkit-scrollbar-thumb:hover,
+html:not(.dark) ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Light Mode Card & Panel Enhancements */
+html.light .bg-\[\#07090e\] {
+  background-color: #f8fafc;
+}
+
+html.light .bg-\[\#0b0e14\],
+html.light .bg-\[\#080b10\],
+html.light .bg-\[\#090c12\],
+html.light .bg-\[\#0a0e16\],
+html.light .bg-\[\#0c1017\],
+html.light .bg-\[\#0c0d16\],
+html.light .bg-\[\#0e131d\],
+html.light .bg-\[\#0e131d\]\/90 {
+  background-color: #ffffff;
+  box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.05);
+}
+
+html.light .border-slate-800,
+html.light .border-slate-800\/80,
+html.light .border-slate-800\/90,
+html.light .border-slate-850,
+html.light .border-slate-900 {
+  border-color: #e2e8f0;
+}
+
+html.light .bg-slate-900,
+html.light .bg-slate-900\/80,
+html.light .bg-slate-900\/90,
+html.light .bg-slate-950,
+html.light .bg-slate-950\/80,
+html.light .bg-slate-950\/90,
+html.light .bg-slate-950\/70,
+html.light .bg-slate-950\/60 {
+  background-color: #f1f5f9;
+}
+
+/* Light mode text contrast */
+html.light .text-slate-100,
+html.light .text-slate-200 {
+  color: #1e293b;
+}
+
+html.light .text-slate-300 {
+  color: #334155;
+}
+
+html.light .text-slate-400 {
+  color: #64748b;
+}
+
+html.light .text-slate-500 {
+  color: #64748b;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0b0e14;
+}
+::-webkit-scrollbar-thumb {
+  background: #252b3b;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3b445c;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.9; }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Subtle Price-Pump Green Flash Animation */
+@keyframes price-pump-flash {
+  0% {
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-price-pump {
+  animation: price-pump-flash 1.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes price-pump-ring {
+  0% {
+    opacity: 0;
+    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0);
+  }
+  15% {
+    opacity: 1;
+    box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.7), inset 0 0 24px rgba(16, 185, 129, 0.3);
+  }
+  60% {
+    opacity: 0.8;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.4), inset 0 0 16px rgba(16, 185, 129, 0.18);
+  }
+  100% {
+    opacity: 0;
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0), inset 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+.animate-price-pump-ring {
+  animation: price-pump-ring 1.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pump-badge {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.92);
+  }
+  15% {
+    opacity: 1;
+    transform: translateY(0) scale(1.05);
+  }
+  30% {
+    transform: translateY(0) scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.95);
+  }
+}
+
+.animate-pump-badge {
+  animation: pump-badge 1.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+

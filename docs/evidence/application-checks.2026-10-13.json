@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-13",
+  "environment": "Windows, Node 24.14.0, Bun 1.4.2, Chromium",
+  "frozen_lockfile_install": "PASS",
+  "frozen_install_counts": {"installed": 402, "packages": 497},
+  "typescript": "PASS",
+  "vite_production_build": "PASS",
+  "application_tests": {
+    "command": "bun run test",
+    "passed": 104,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "duration_ms": 17905.2929,
+    "scope": "Full post-wallet suite: production TypeScript routers, worker, SQL migrations in PostgreSQL WASM, financial verifiers, wallet signatures, SDK bridge and five acceptance-script cases included in the 104 total. External identity, inference and S3 transports are test doubles where documented."
+  },
+  "browser_tests": {
+    "command": "bun run test:e2e",
+    "passed": 6,
+    "failed": 0,
+    "duration_seconds": 5.4,
+    "scope": "Full suite: three smoke checks, one hostile-artifact runtime fixture and two wallet-entry tests using production router/SQL with a wallet-extension test double. No personal extension, live email signup or generation claim."
+  },
+  "superseded_checkpoint": {"application_tests": 89, "browser_tests": 4, "scope": "Before platform wallet auth"},
+  "wallet_control_migration_005": {"main_applied": true, "rls_grants": "PASS"},
+  "pending_wallet_checks": ["Personal Phantom/Solflare extensions", "Separate Neon QA BFF/SQL proof pending result"],
+  "pending_by_user_decision": [
+    "Personal OpenRouter connection and live zero-balance creator acceptance",
+    "Devnet funding, deployment, market creation, buy, sell and contribution"
+  ],
+  "full_delivery_accepted": false
+}

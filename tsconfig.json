@@ -1,4 +1,5 @@
 {
+  "exclude": ["node_modules", "dist", "legacy", "graphify-out", ".local", "tests/e2e"],
   "compilerOptions": {
     "target": "ES2022",
     "experimentalDecorators": true,

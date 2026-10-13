@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-13T07:28:17.016Z",
+  "control_only": true,
+  "dedicated_destination_verified": true,
+  "migration": {
+    "name": "202610130005_wallet_auth.sql",
+    "sha256": "1e70fe162f29f73be05aab65d7d4cef99564e3ece3a8cbd2c7dced1f53d687e4"
+  },
+  "tables": [
+    {
+      "relname": "wallet_auth_challenges",
+      "relrowsecurity": true,
+      "public_denied": true
+    },
+    {
+      "relname": "wallet_credentials",
+      "relrowsecurity": true,
+      "public_denied": true
+    }
+  ],
+  "managed_auth_schema_modified": false,
+  "rpc_or_transactions": false
+}

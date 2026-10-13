@@ -1,0 +1,15 @@
+{
+  "runs": [
+    {
+      "date": "2026-10-13T07:14:48.533156+00:00",
+      "input_tokens": null,
+      "output_tokens": null,
+      "files": 105,
+      "accounting": "host token usage unavailable",
+      "external_llm_api_calls": 0
+    }
+  ],
+  "total_input_tokens": null,
+  "total_output_tokens": null,
+  "note": "Unknown is not zero. Zero counters in extraction.json are explicit engine placeholders."
+}

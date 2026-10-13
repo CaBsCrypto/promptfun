@@ -1,5 +1,7 @@
 * text=auto
 *.sh text eol=lf
+graphify-out/*.json linguist-generated=true
+graphify-out/*.html linguist-generated=true
 *.ts text eol=lf
 *.tsx text eol=lf
 *.rs text eol=lf

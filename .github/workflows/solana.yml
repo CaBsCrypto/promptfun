@@ -1,0 +1,26 @@
+name: promptfun Solana build
+on:
+  pull_request:
+  push:
+    branches: [main, 'codex/**']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  solana:
+    runs-on: ubuntu-latest
+    container: quay.io/ottersec/anchor:v1.2.1
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build program and run genuine SBF tests
+        run: bash scripts/solana-build-ci.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: promptfun-devnet-program
+          include-hidden-files: true
+          path: |
+            .local/solana-artifacts/promptfun_market.so
+            .local/solana-artifacts/promptfun_market.json
+            .local/solana-artifacts/artifact.json
+          if-no-files-found: error
+          retention-days: 7

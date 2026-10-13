@@ -6,3 +6,15 @@ coverage/
 *.log
 .env*
 !.env.example
+.local/
+test-results/
+playwright-report/
+target/
+**/target/
+**/supabase/.temp/
+**/supabase/.branches/
+**/supabase/snippets/
+*.keypair.json
+/.agents/
+/skills-lock.json
+/.neon

@@ -1,0 +1,9 @@
+{
+  "anchor": "1.2.1",
+  "build_os": "linux",
+  "platform_tools": "v1.57",
+  "arch": "v3",
+  "solana_cli": "4.1.2",
+  "litesvm": "0.13.1",
+  "notes": "Build in keyless Linux CI. LiteSVM is a separate Cargo workspace because its pinned Solana instruction 3.2.0 conflicts with Anchor 1.2.1."
+}

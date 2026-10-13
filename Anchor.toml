@@ -1,0 +1,19 @@
+[toolchain]
+anchor_version = "1.2.1"
+
+[features]
+resolution = true
+skip-lint = false
+
+[programs.localnet]
+promptfun_market = "C6hCYFeBUkUruFgMkSz2EPVfLR4KnBVxWgGZcSFWzUJf"
+
+[programs.devnet]
+promptfun_market = "C6hCYFeBUkUruFgMkSz2EPVfLR4KnBVxWgGZcSFWzUJf"
+
+[provider]
+cluster = "Devnet"
+wallet = "~/.config/solana/promptfun-devnet.json"
+
+[test]
+upgradeable = true

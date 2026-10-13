@@ -15,7 +15,7 @@ cp "$PF_REPO/programs/market-tests/Cargo.toml" "$PF_REPO/programs/market-tests/C
 cp -R "$PF_REPO/programs/market-tests/src" "$PF_BUILD/programs/market-tests/"
 cd "$PF_BUILD"
 cargo test -p promptfun-market --lib --locked
-anchor build --tools-version v1.57 --arch v3 -- --locked
+anchor build --ignore-keys --tools-version v1.57 --arch v3 -- -- --locked
 cargo test --manifest-path programs/market-tests/Cargo.toml --locked
 cp target/deploy/promptfun_market.so "$PF_OUT/promptfun_market.so"
 cp target/idl/promptfun_market.json "$PF_OUT/promptfun_market.json"

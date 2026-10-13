@@ -6,7 +6,7 @@ pub mod math;
 use math::*;
 
 // This public address is synchronized to the operator's external deployment key before deployment.
-declare_id!("C6hCYFeBUkUruFgMkSz2EPVfLR4KnBVxWgGZcSFWzUJf");
+declare_id!("C2AEAUWXez38SBM7Hz7SmfZ8dd9WdefEvkXsKUPFNyvG");
 
 #[program]
 pub mod promptfun_market {

@@ -12,10 +12,10 @@ members = ["programs/promptfun-market"]
 exclude = ["programs/market-tests"]
 
 [programs.localnet]
-promptfun_market = "C6hCYFeBUkUruFgMkSz2EPVfLR4KnBVxWgGZcSFWzUJf"
+promptfun_market = "C2AEAUWXez38SBM7Hz7SmfZ8dd9WdefEvkXsKUPFNyvG"
 
 [programs.devnet]
-promptfun_market = "C6hCYFeBUkUruFgMkSz2EPVfLR4KnBVxWgGZcSFWzUJf"
+promptfun_market = "C2AEAUWXez38SBM7Hz7SmfZ8dd9WdefEvkXsKUPFNyvG"
 
 [provider]
 cluster = "Devnet"

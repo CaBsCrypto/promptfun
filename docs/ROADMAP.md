@@ -25,5 +25,7 @@ La suite completa post-wallet pasó 104 tests y 6 Playwright; supera el corte de
 
 **Prioridad del 15 de octubre: creador completo.** Se añaden borradores privados con autosave y revisión optimista, recuperación del proyecto activo, errores recuperables y consulta manual del resultado incierto. Las pruebas locales, de navegador y Neon QA se registran en [VALIDATION.md](VALIDATION.md); el [recorrido con cuentas reales](CREATOR_ACCEPTANCE.md) mantiene G1 abierta hasta generar, usar, iterar y publicar la app de tareas. La siguiente fase será una beta online pequeña; el despliegue y las operaciones Devnet conservan su aplazamiento independiente.
 
+Código y evidencia de esta fase: [PR #3 en borrador](https://github.com/CaBsCrypto/promptfun/pull/3), dependiente de PR #2. Corte del 15 de octubre: 119 pruebas locales y 16 de navegador aprobadas, control006 aplicado con backup previo y restauración Neon SQL/S3 de proyecto/borrador/versiones/tarea/archivo aprobada. No sustituye el recorrido personal ni cierra G1/G2/G3.
+
 H01 aporta una base navegable y reproducible. H02 y H04 deben demostrar las fronteras con cuentas reales; H03 necesita la generación gratuita efectiva. La publicación de una versión y el mercado se verifican en H05, con artefacto/autoridades/red coincidentes. H06 reúne resultados y sólo cierra los criterios satisfechos. No hay autorización de Mainnet ni de administración de fondos IA; G4 queda fuera de esta entrega.
 

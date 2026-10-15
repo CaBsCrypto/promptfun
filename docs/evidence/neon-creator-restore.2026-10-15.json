@@ -1,0 +1,129 @@
+{
+  "test": "Creator draft + native Neon SQL/S3 backup/restore",
+  "run": "creator-restore-20261015055733929-64700a04",
+  "result": "PASS",
+  "started_at": "2026-10-15T06:06:51.710Z",
+  "expires_at": "2026-10-15T07:57:33Z",
+  "resumed": true,
+  "attempt": "resume-20261015060651706-adbf506e",
+  "checks": {
+    "original_source_project_draft_timestamp_and_empty_apps_unchanged": true,
+    "target_databases_empty_and_schema_hashes_current": true,
+    "source_recorded_private_bucket_reused": true,
+    "branch_storage_endpoint_bucket_credentials_are_distinct": true,
+    "exact_draft_revision_and_v2_base": true,
+    "two_immutable_version_hashes": true,
+    "app_task_preserved": true,
+    "private_object_bytes_sha256": true,
+    "no_restored_sessions_or_provider_grants": true,
+    "restored_wallet_identity_and_private_http": true,
+    "restored_other_owner_404": true,
+    "source_and_target_isolation": true
+  },
+  "targets": {
+    "control": {
+      "project_id": "silent-shape-11659103",
+      "branch_id": "br-muddy-surf-b8mzpi8i",
+      "name": "creator-restore-20261015055733929-64700a04-control",
+      "expires_at": "2026-10-15T07:57:33Z"
+    },
+    "apps": {
+      "project_id": "mute-cloud-08331010",
+      "branch_id": "br-broad-frog-b7uqlawg",
+      "name": "creator-restore-20261015055733929-64700a04-apps",
+      "expires_at": "2026-10-15T07:57:33Z"
+    }
+  },
+  "http": [
+    {
+      "phase": "source owner challenge",
+      "status": 200
+    },
+    {
+      "phase": "source owner verify",
+      "status": 200
+    },
+    {
+      "phase": "link private draft base to v2",
+      "status": 200
+    },
+    {
+      "phase": "source owner logout",
+      "status": 200
+    },
+    {
+      "phase": "restored owner challenge",
+      "status": 200
+    },
+    {
+      "phase": "restored owner verify",
+      "status": 200
+    },
+    {
+      "phase": "restored private draft HTTP",
+      "status": 200
+    },
+    {
+      "phase": "restored other wallet challenge",
+      "status": 200
+    },
+    {
+      "phase": "restored other wallet verify",
+      "status": 200
+    },
+    {
+      "phase": "restored other wallet draft denial",
+      "status": 404
+    },
+    {
+      "phase": "restored owner logout",
+      "status": 200
+    },
+    {
+      "phase": "restored other logout",
+      "status": 200
+    }
+  ],
+  "signed_messages": 3,
+  "managed_auth_requests": 0,
+  "inference_requests": 0,
+  "financial_transactions": 0,
+  "fixture_is_not_generated_or_authenticated_app_user": true,
+  "storage_guards": {
+    "source": {
+      "branch_matches": true,
+      "https": true,
+      "neon_endpoint": true,
+      "endpoint_differs_main": true,
+      "access_key_differs_main": true,
+      "secret_differs_main": true
+    },
+    "target": {
+      "branch_matches": true,
+      "https": true,
+      "neon_endpoint": true,
+      "endpoint_differs_main": true,
+      "access_key_differs_main": true,
+      "secret_differs_main": true
+    }
+  },
+  "attempted_storage": {
+    "label": "target",
+    "project_id": "mute-cloud-08331010",
+    "branch_id": "br-broad-frog-b7uqlawg",
+    "bucket": "creator-restore-20261015055733929-64700a04-target"
+  },
+  "fixture_file": {
+    "bytes": 97,
+    "sha256": "cd910fdd3c8fdf1d53c3fbaa296afa73bd96560cf458d62b7af7f9a378ea9605"
+  },
+  "counts": {
+    "projects": 1,
+    "versions": 2,
+    "drafts": 1,
+    "app_users": 1,
+    "tasks": 1,
+    "files": 1
+  },
+  "finished_at": "2026-10-15T06:08:10.471Z"
+}

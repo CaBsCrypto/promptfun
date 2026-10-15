@@ -5,6 +5,7 @@ import { Connection, PublicKey, Keypair, Transaction } from '@solana/web3.js';
 import type { CoreContext, Authenticate, AuthenticatedUser } from '../shared.js';
 import { asyncRoute, HttpError, assertOrigin } from '../shared.js';
 import { integer, quoteTrade, QUOTE_SECONDS } from '../../shared/curve.js';
+import { assertNonDemo } from '../control/demo-policy.js';
 import { addresses, assertDevnet, createAta, decodeMarket, fundingTransaction, hash, registerInstruction,
   TOKEN_PROGRAM, tradeInstruction, uuidBytes, validateCurveVault, validateLockedVault, validateMint, verifyPreparedTransaction, verifyWalletMessage } from './chain.js';
 
@@ -35,7 +36,7 @@ export function createMarketRouter(ctx: CoreContext, authenticate: Authenticate)
   const program=()=>{if(!configured()) throw new HttpError(503,'MARKET_NOT_CONFIGURED','El programa Devnet y registrar todavía no están configurados.'); return pubkey(ctx.config.marketProgramId);};
   async function devnet() { try { await assertDevnet(connection); } catch(e) { throw new HttpError(503,'DEVNET_UNAVAILABLE',(e as Error).message); } }
   async function auth(req:any):Promise<AuthenticatedUser> {
-    const user=await authenticate(req); assertOrigin(req,ctx.config.platformOrigin);
+    const user=await authenticate(req); assertNonDemo(user); assertOrigin(req,ctx.config.platformOrigin);
     const supplied=Buffer.from(req.get('x-csrf-token')||''),expected=Buffer.from(user.csrf_token);
     if(supplied.length!==expected.length || !timingSafeEqual(supplied,expected)) throw new HttpError(403,'INVALID_CSRF','Token CSRF inválido.');
     return user;

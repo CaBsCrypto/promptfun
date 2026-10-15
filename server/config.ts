@@ -13,6 +13,11 @@ export function loadConfig(): Config {
   };
   const platformOrigin = process.env.PLATFORM_ORIGIN || 'http://localhost:3000';
   const runtimeOrigin = process.env.RUNTIME_ORIGIN || 'http://127.0.0.1:4000';
+  const localDemoEnabled = process.env.LOCAL_DEMO_ENABLED === 'true';
+  if (localDemoEnabled && (production || [platformOrigin, runtimeOrigin].some(value => {
+    const url = new URL(value);
+    return url.origin !== value || !['http:', 'https:'].includes(url.protocol) || !['localhost', '127.0.0.1', '[::1]'].includes(url.hostname);
+  }))) throw new Error('Local demo requires development and exact loopback platform/runtime origins');
   if (new URL(platformOrigin).hostname === new URL(runtimeOrigin).hostname)
     throw new Error('Platform and runtime must use separate hostnames, not just separate ports');
   const backendProvider = process.env.BACKEND_PROVIDER === 'supabase' ? 'supabase' : 'neon';
@@ -27,6 +32,7 @@ export function loadConfig(): Config {
   if (production && [platformOrigin,runtimeOrigin].some(origin=>new URL(origin).protocol!=='https:'))
     throw new Error('Production platform and runtime require HTTPS');
   return {
+    localDemoEnabled,
     backendProvider,
     controlAuthUrl, appsAuthUrl,
     neonStorageEndpoint: process.env.NEON_STORAGE_ENDPOINT || '',

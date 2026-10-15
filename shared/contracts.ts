@@ -1,4 +1,4 @@
-export interface PlatformUser { id: string; email: string | null; wallet_address?: string | null }
+export interface PlatformUser { id: string; email: string | null; wallet_address?: string | null; is_demo?: boolean }
 export interface Session { user: PlatformUser | null; csrf_token: string | null }
 export interface Project {
   id: string; owner_id?: string; title: string; description: string;

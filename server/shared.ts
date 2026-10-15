@@ -3,6 +3,7 @@ import type { Request } from 'express';
 import type { PlatformUser } from '../shared/contracts.js';
 
 export interface Config {
+  localDemoEnabled?: boolean;
   backendProvider?: 'neon' | 'supabase';
   controlAuthUrl?: string; appsAuthUrl?: string;
   neonStorageEndpoint?: string; neonStorageAccessKeyId?: string;

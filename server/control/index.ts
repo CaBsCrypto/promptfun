@@ -6,10 +6,11 @@ import { mountProviders } from './providers.js';
 import { mountJobs } from './jobs.js';
 import { mountWalletAuth } from './wallet-auth.js';
 import { mountDrafts } from './drafts.js';
+import { mountDemoAuth } from './demo-auth.js';
 
 export function createControlRouter(ctx: CoreContext): Router {
   const router = Router();
   router.use((_req, res, next) => { res.set('Cache-Control', 'no-store'); next(); });
-  mountAuth(router, ctx); mountWalletAuth(router,ctx); mountProjects(router, ctx); mountDrafts(router,ctx); mountProviders(router, ctx); mountJobs(router, ctx);
+  mountAuth(router, ctx); mountDemoAuth(router,ctx); mountWalletAuth(router,ctx); mountProjects(router, ctx); mountDrafts(router,ctx); mountProviders(router, ctx); mountJobs(router, ctx);
   return router;
 }

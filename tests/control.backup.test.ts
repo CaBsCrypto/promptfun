@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdir, mkdtemp, readFile, writeFile, rm } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, writeFile, rm, readdir } from 'node:fs/promises';
 import { resolve, relative, isAbsolute } from 'node:path';
 import { createHash, randomUUID } from 'node:crypto';
 import { PGlite } from '@electric-sql/pglite';
@@ -13,6 +13,7 @@ import { migrateClient } from '../scripts/migrate.js';
 import { databaseOptions, databaseIdentity } from '../server/control/database.js';
 import { artifactHash } from '../server/control/security.js';
 import { runOneJob } from '../server/control/worker.js';
+import { demoIdentity } from '../server/control/demo-auth.js';
 import type { ObjectStore } from '../server/runtime/storage.js';
 import type { Config, CoreContext } from '../server/shared.js';
 
@@ -23,13 +24,21 @@ const sourceConfig={backendProvider:'neon',controlDatabaseUrl:'postgresql://owne
 const targetConfig={...sourceConfig,controlDatabaseUrl:'postgresql://owner:fixture@ep-target-control.neon.tech/db?sslmode=verify-full',appsDatabaseUrl:'postgresql://owner:fixture@ep-target-apps.neon.tech/db?sslmode=verify-full',neonStorageEndpoint:'https://target-storage.example.invalid'};
 async function temp() {await mkdir(testRoot,{recursive:true});return mkdtemp(resolve(testRoot,'backup-'));}
 async function removeTemp(path:string) {const rel=relative(testRoot,resolve(path));assert.ok(rel&&!rel.startsWith('..')&&!isAbsolute(rel));await rm(resolve(path),{recursive:true,force:true});}
-async function database(plane:'control'|'apps') {
+async function database(plane:'control'|'apps',through?:string) {
   const engine=new PGlite({extensions:{pgcrypto}});await engine.waitReady;
   const db:BackupDatabase={query:async(sql,values=[])=> {
     const result=values.length?await engine.query<any>(sql,values):sql.includes(';')?(await engine.exec(sql)).at(-1)!:await engine.query<any>(sql);
     return {rows:result.rows as any[],rowCount:result.rows.length||result.affectedRows||0};
   }};
-  await migrateClient(db as any,resolve('supabase',plane,'migrations'));return {engine,db};
+  const migrations=resolve('supabase',plane,'migrations');
+  if(through) {
+    const subset=await temp();
+    try {
+      for(const name of (await readdir(migrations)).filter(name=>name.endsWith('.sql')&&name<=through))await writeFile(resolve(subset,name),await readFile(resolve(migrations,name)));
+      await migrateClient(db as any,subset);
+    } finally {await removeTemp(subset);}
+  } else await migrateClient(db as any,migrations);
+  return {engine,db};
 }
 function memoryStore() {
   const data=new Map<string,Buffer>();let puts=0,failAt=0;
@@ -38,8 +47,8 @@ function memoryStore() {
     delete:async path=>{data.delete(path);},isEmpty:async()=>data.size===0};
   return {store,data,failAfter:(n:number)=>{failAt=n;},puts:()=>puts};
 }
-async function seeded() {
-  const control=await database('control'),apps=await database('apps'),objects=memoryStore();
+async function seeded(through?:string) {
+  const control=await database('control',through),apps=await database('apps'),objects=memoryStore();
   const owner=randomUUID(),appUser=randomUUID(),project=randomUUID(),base=randomUUID(),latest=randomUUID(),connection=randomUUID(),job=randomUUID(),attempt=randomUUID();
   const manifest={version:1 as const,records:{collections:['tasks']},auth:true,files:true,connectors:[]};
   const html='<!doctype html><html><body>Tareas con archivos</body></html>',html2=html.replace('Tareas','Mis tareas');
@@ -147,6 +156,69 @@ test('restore configuration requires explicit target credentials and never falls
   assert.equal(sourceFingerprints({...sourceConfig,neonStorageEndpoint:'https://SOURCE-storage.example.invalid.:443/'}).objects,sourceFingerprints(sourceConfig).objects);
   assert.notEqual(sourceFingerprints({...sourceConfig,neonStorageBucket:'files-v2'}).objects,sourceFingerprints(sourceConfig).objects);
   assert.throws(()=>restoreConfig(sourceConfig,{...env,RESTORE_CONTROL_DATABASE_URL:'postgresql://other:fixture@EP-SOURCE-CONTROL-pooler.neon.tech.:5432/%64b?sslmode=verify-full'}),/isolated/);
+});
+
+test('an actual schema 006 backup restores into the exact constraint-only 007 extension without changing source evidence',async()=>{
+  const source=await seeded('202610150006_project_drafts.sql'),a=await database('control'),b=await database('apps'),objects=memoryStore(),directory=await temp();
+  const demoMigration='202610150007_local_demo.sql';
+  try {
+    await writeBackup(directory,source.control.db,source.apps.db,source.objects.store,sourceFingerprints(sourceConfig));
+    const controlText=await readFile(resolve(directory,'control.json'),'utf8'),marker=await readFile(resolve(directory,'manifest.json'),'utf8');
+    const original=JSON.parse(marker);assert.equal(original.migrations.control.at(-1).name,'202610150006_project_drafts.sql');
+    assert.equal((await source.control.db.query('select 1 from promptfun_migrations where name=$1',[demoMigration])).rows.length,0);
+    const actualSha=(await a.db.query('select sha256 from promptfun_migrations where name=$1',[demoMigration])).rows[0].sha256;
+    await a.db.query('update promptfun_migrations set sha256=$2 where name=$1',[demoMigration,'f'.repeat(64)]);
+    await assert.rejects(restoreBackup(directory,a.db,b.db,objects.store,sourceFingerprints(targetConfig)),/schema differs/);
+    assert.equal(objects.puts(),0);assert.equal((await a.db.query('select count(*)::int as n from projects')).rows[0].n,0);
+    await a.db.query('update promptfun_migrations set sha256=$2 where name=$1',[demoMigration,actualSha]);
+    await a.db.query('insert into promptfun_migrations(name,sha256) values($1,$2)',['202610150008_unknown.sql','a'.repeat(64)]);
+    await assert.rejects(restoreBackup(directory,a.db,b.db,objects.store,sourceFingerprints(targetConfig)),/schema differs/);
+    await a.db.query('delete from promptfun_migrations where name=$1',['202610150008_unknown.sql']);
+    // An older journal cannot be relabeled as containing newer demo identities,
+    // even when an attacker recomputes the transport hash of control.json.
+    const forged=JSON.parse(controlText);Object.assign(forged.platform_users[0],{auth_provider:'local_demo',email:null,auth_subject:'a'.repeat(64)});
+    const forgedText=JSON.stringify(forged);original.hashes.control=hash(forgedText);
+    await writeFile(resolve(directory,'control.json'),forgedText);await writeFile(resolve(directory,'manifest.json'),JSON.stringify(original));
+    await assert.rejects(verifyBackup(directory),/Demo identity requires its recorded schema migration/);
+    await writeFile(resolve(directory,'control.json'),controlText);await writeFile(resolve(directory,'manifest.json'),marker);
+    assert.equal((await restoreBackup(directory,a.db,b.db,objects.store,sourceFingerprints(targetConfig))).restored,true);
+    assert.deepEqual((await a.db.query('select * from project_drafts')).rows,(await source.control.db.query('select * from project_drafts')).rows);
+    assert.equal((await a.db.query('select published_version_id from projects')).rows[0].published_version_id,source.latest);
+    assert.equal((await a.db.query('select count(*)::int as n from platform_sessions')).rows[0].n,0);
+    assert.equal((await a.db.query('select sha256 from promptfun_migrations where name=$1',[demoMigration])).rows[0].sha256,actualSha);
+    assert.equal(await readFile(resolve(directory,'control.json'),'utf8'),controlText);assert.equal(await readFile(resolve(directory,'manifest.json'),'utf8'),marker);
+  } finally {await Promise.all([source.control.engine.close(),source.apps.engine.close(),a.engine.close(),b.engine.close()]);await removeTemp(directory);}
+});
+
+test('007 backups preserve demo identity, owned projects and private drafts but exclude the browser identity and all sessions',async()=>{
+  const source=await seeded(),a=await database('control'),b=await database('apps'),old=await database('control','202610150006_project_drafts.sql'),objects=memoryStore(),directory=await temp();
+  const encryptionKey='fixture-original-demo-key-not-a-real-credential',browser='b'.repeat(43),origin='http://localhost:3000';
+  const config={encryptionKey,platformOrigin:origin} as Config,ctx={config} as CoreContext;
+  const identity=demoIdentity(ctx,browser),project=randomUUID();
+  try {
+    await source.control.db.query("insert into platform_users(id,email,auth_provider,auth_subject) values($1,null,'local_demo',$2)",[identity.id,identity.subject]);
+    await source.control.db.query('insert into projects(id,owner_id,title) values($1,$2,$3)',[project,identity.id,'Private demo creator fixture']);
+    await source.control.db.query('insert into project_drafts(project_id,prompt,model,base_version_id,revision) values($1,$2,$3,null,6)',[project,'  Private demo draft\nwith exact whitespace 💡  ','fixture/code:free']);
+    await source.control.db.query("insert into platform_sessions(user_id,token_hash,csrf_token,auth_token_ciphertext,expires_at,auth_method) values($1,$2,'SOURCE_PRIVATE_DEMO_CSRF',null,now()+interval '1 hour','local_demo')",[identity.id,hash('fixture-demo-session')]);
+    await writeBackup(directory,source.control.db,source.apps.db,source.objects.store,sourceFingerprints(sourceConfig));
+    const bundle=await verifyBackup(directory),text=JSON.stringify(bundle);
+    assert.ok(!text.includes(browser)&&!text.includes(encryptionKey)&&!text.includes('SOURCE_PRIVATE_'));
+    assert.equal(Object.hasOwn(bundle.control,'platform_sessions'),false);assert.equal(Object.hasOwn(bundle.control,'wallet_auth_challenges'),false);
+    const demo=bundle.control.platform_users.find(row=>row.id===identity.id);assert.equal(demo?.auth_subject,identity.subject);assert.equal(demo?.email,null);
+    await assert.rejects(restoreBackup(directory,old.db,b.db,objects.store,sourceFingerprints(targetConfig)),/schema differs/);
+    assert.equal(objects.puts(),0);
+    assert.equal((await restoreBackup(directory,a.db,b.db,objects.store,sourceFingerprints(targetConfig))).restored,true);
+    assert.deepEqual((await a.db.query('select * from platform_users where id=$1',[identity.id])).rows,(await source.control.db.query('select * from platform_users where id=$1',[identity.id])).rows);
+    assert.equal((await a.db.query('select owner_id from projects where id=$1',[project])).rows[0].owner_id,identity.id);
+    assert.deepEqual((await a.db.query('select * from project_drafts where project_id=$1',[project])).rows,(await source.control.db.query('select * from project_drafts where project_id=$1',[project])).rows);
+    assert.equal((await a.db.query('select count(*)::int as n from platform_sessions')).rows[0].n,0);
+    assert.equal((await b.db.query('select count(*)::int as n from app_sessions')).rows[0].n,0);
+    // Recovery still depends on the operator retaining the original server key
+    // and browser nonce. The backup manufactures neither of those credentials.
+    assert.deepEqual(demoIdentity({config:{...config}} as CoreContext,browser),identity);
+    assert.notEqual(demoIdentity({config:{...config,encryptionKey:'different-fixture-key'}} as CoreContext,browser).id,identity.id);
+    assert.notEqual(demoIdentity(ctx,'c'.repeat(43)).id,identity.id);
+  } finally {await Promise.all([source.control.engine.close(),source.apps.engine.close(),a.engine.close(),b.engine.close(),old.engine.close()]);await removeTemp(directory);}
 });
 
 test('older v1 backups restore with empty new tables only across the exact known wallet/draft migrations',async()=>{

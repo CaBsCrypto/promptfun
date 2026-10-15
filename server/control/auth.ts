@@ -4,6 +4,7 @@ import { HttpError, assertOrigin, asyncRoute } from '../shared.js';
 import { decryptSecret, encryptSecret, equalSecret, hash, nonce, textInput } from './security.js';
 import { identityProvider, identitySubject, identityUserId, revokeIdentity, signInIdentity, supabaseIdentityRequest, validateIdentity, verifyIdentityEmail, sendIdentityVerification, type Identity } from './identity.js';
 import { transaction } from './db.js';
+import { validateDemoSession } from './demo-auth.js';
 
 export const SESSION_COOKIE = 'pf_session';
 export const SESSION_SECONDS = 24 * 60 * 60;
@@ -26,7 +27,9 @@ export async function authenticate(ctx: CoreContext, req: Request, checkProvider
      left join wallet_credentials w on w.user_id=u.id and w.state='active'
      where s.token_hash=$1 and s.revoked_at is null and s.expires_at>now()`, [hash(token)]);
   const row=result.rows[0];if (!row) throw new HttpError(401, 'SESSION_EXPIRED', 'La sesión venció. Inicia sesión nuevamente.');
-  if(checkProvider && row.auth_method==='solana') {
+  const demo = row.auth_method === 'local_demo' || row.auth_provider === 'local_demo';
+  if(demo) validateDemoSession(ctx,req,row);
+  else if(checkProvider && row.auth_method==='solana') {
     if(row.wallet_owner!==row.id || row.wallet_state!=='active') {
       await ctx.control.query('update platform_sessions set revoked_at=now() where id=$1',[row.session_id]);
       throw new HttpError(401,'WALLET_REVOKED','El acceso con esta wallet fue revocado.');
@@ -51,7 +54,7 @@ export async function authenticate(ctx: CoreContext, req: Request, checkProvider
     });row.email=identity.email;
   }
   // Internal upstream permission/ciphertext must never escape through an authentication DTO.
-  return {id:row.id,email:row.email,wallet_address:row.wallet_address||null,csrf_token:row.csrf_token,session_id:row.session_id};
+  return {id:row.id,email:row.email,wallet_address:row.wallet_address||null,csrf_token:row.csrf_token,session_id:row.session_id,...(demo?{is_demo:true}:{})};
 }
 export function assertCsrf(ctx: CoreContext, req: Request, user: AuthenticatedUser) {
   assertOrigin(req, ctx.config.platformOrigin);
@@ -90,7 +93,7 @@ export function mountAuth(router: Router, ctx: CoreContext) {
   }));
   router.get('/session', asyncRoute(async (req, res) => {
     res.set('Cache-Control', 'no-store');
-    try { const user = await authenticate(ctx, req); res.json({ user: { id: user.id, email: user.email,wallet_address:user.wallet_address||null }, csrf_token: user.csrf_token }); }
+    try { const user = await authenticate(ctx, req); res.json({ user: { id: user.id, email: user.email,wallet_address:user.wallet_address||null,...(user.is_demo?{is_demo:true}:{}) }, csrf_token: user.csrf_token }); }
     catch (e) { if (e instanceof HttpError && e.status === 401) res.json({ user: null, csrf_token: null }); else throw e; }
   }));
   for (const action of ['login', 'signup'] as const) {

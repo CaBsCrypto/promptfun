@@ -1,5 +1,16 @@
 # Validación y estado de la entrega
 
+## Demo local — 15 de octubre de 2026
+
+Decisión del usuario: editor y guardado con datos de prueba, sin IA real. Se añadió **Entrar en demo**, con identidad privada por navegador y sesiones SQL reales, flag desactivado por defecto y barreras de desarrollo/loopback. Se bloquean por API generación, proveedores, publicación, feedback público, importación/preview privado, vínculo wallet y mutaciones de mercado/aportes. [Activación y recuperación](LOCAL_DEMO.md).
+
+- **131 tests y 19 Playwright aprobados**, sin fallos ni omitidos; lint/build aprobados. Incluyen backup006→007 y roundtrip demo sin sesiones, RLS/CSRF, aislamiento por navegador, guardas financieras, logout/reentrada y autosave con router y PostgreSQL WASM reales. No se suman al total previo de 119/16. [Comandos y hashes del código comprobado](evidence/local-demo-checks.2026-10-15.json).
+- **Neon QA real PASS**: 27 respuestas HTTP, dos identidades, borrador exacto recuperado tras logout y reinicio de HTTP/pool, 403/404 correctos y cero IA/grants/versiones. El límite Free rechazó crear otra raíz; se verificó y reutilizó una rama QA propia con una base nueva, sin modificar las bases anteriores. [Resultado](evidence/local-demo-neon.2026-10-15.reused-qa.json), [intento inicial rechazado antes de crear recursos](evidence/local-demo-neon.2026-10-15.json).
+- **Control007 aplicado al principal**, tras verificar un backup SQL/objetos de ambos planos dedicados. RLS permanece activo y los roles de navegador no tienen grants; no se insertaron fixtures durante el rollout. [Registro](evidence/local-demo-migration.2026-10-15.json).
+- **Navegador integrado → Neon principal PASS**: se creó «Gestor de tareas (demo)» y se guardó el prompt de ejemplo, sin inferencia ni versión generada. Recarga, logout/reentrada y reinicio real del servidor local recuperan el mismo propietario y borrador/revisión; hashes cotejados mediante lectura SQL autorizada del proyecto exacto. Se deja este contenido de prueba identificado para el usuario. [Registro saneado](evidence/local-demo-browser-neon.2026-10-15.json).
+
+La demo no acredita generación gratuita real, login personal, usuarios/tareas/adjuntos de una app generada o Devnet. Estas aceptaciones siguen pendientes.
+
 ## Actualización del creador — 15 de octubre de 2026
 
 Se implementaron borradores privados con texto/modelo/base y revisión optimista, autosave confirmado por servidor, recuperación del proyecto activo, resolución explícita de conflictos y protección ante respuestas perdidas u obsoletas. Los trabajos inciertos detienen el polling y permiten comprobar ejecución/consumo sin reenviar inferencia. El SDK ahora expone `files.delete(id)` mediante el gateway autorizado existente.

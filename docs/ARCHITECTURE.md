@@ -121,5 +121,7 @@ CI Linux utiliza Anchor 1.2.1, build SBF y harness LiteSVM; produce `promptfun_m
 
 ## Límites actuales
 
+La migración control007 amplía exclusivamente los CHECKs de identidad/sesión para `local_demo`. `GET /auth/demo` informa disponibilidad sin SQL; `POST /auth/demo` crea una sesión BFF real para un propietario derivado por HMAC de un nonce HttpOnly, la clave persistente y el origen. No hay correo ficticio, wallet ni token managed. Cada autenticación demo valida su cookie, flag, host, socket loopback y origen incluso al omitir la comprobación remota del proveedor. No se permite habilitar este acceso en producción. [Contrato y recuperación de la demo](LOCAL_DEMO.md).
+
 Neon S3 privado y backup/restore SQL+objetos se comprobaron en QA aislado; el artefacto actual pasó CI. Falta validar cuentas reales, CRUD/adjuntos desde navegador, OpenRouter, recuperación de identidad, operación/alertas y despliegue/transacciones Devnet. No hay G1/G2/G3 cerrado. El adaptador anterior no autoriza modificar proyectos Supabase existentes; los recursos dedicados mantienen ese aislamiento. Consulte [VALIDATION.md](VALIDATION.md) antes de anunciar disponibilidad.
 

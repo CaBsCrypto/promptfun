@@ -6,6 +6,7 @@ import { authenticate, assertCsrf, cookieOptions, cookieValue, SESSION_COOKIE, S
 import { transaction } from './db.js';
 import { identityId } from './identity.js';
 import { equalSecret, hash, nonce, uuid } from './security.js';
+import { assertNonDemo } from './demo-policy.js';
 
 const FLOW_COOKIE='pf_wallet_flow';
 const FLOW_PATH='/api/auth/wallet';
@@ -48,7 +49,7 @@ export function mountWalletAuth(router:Router,ctx:CoreContext) {
     assertOrigin(req,ctx.config.platformOrigin);const site=origin(ctx),wallet=address(req.body.address),mode=req.body.mode;
     if(mode!=='login'&&mode!=='link')throw new HttpError(422,'INVALID_WALLET_MODE','Elige iniciar sesión o vincular wallet.');
     const user=mode==='link'?await authenticate(ctx,req):null;
-    if(user){assertCsrf(ctx,req,user);if(!user.email)throw new HttpError(409,'MANAGED_ACCOUNT_REQUIRED','Vincula la wallet desde una cuenta existente con correo.');}
+    if(user){assertNonDemo(user);assertCsrf(ctx,req,user);if(!user.email)throw new HttpError(409,'MANAGED_ACCOUNT_REQUIRED','Vincula la wallet desde una cuenta existente con correo.');}
     const id=randomUUID(),flowToken=nonce(),challengeNonce=randomBytes(32).toString('hex');
     const time=(await ctx.control.query('select now() as time')).rows[0].time;
     const issuedAt=new Date(time).toISOString(),expiresAt=new Date(Date.parse(issuedAt)+FIVE_MINUTES).toISOString();
@@ -64,7 +65,7 @@ export function mountWalletAuth(router:Router,ctx:CoreContext) {
     const pending=(await ctx.control.query('select mode from wallet_auth_challenges where id=$1',[id])).rows[0];
     if(!pending)throw invalid();
     const user=pending.mode==='link'?await authenticate(ctx,req):null;
-    if(user)assertCsrf(ctx,req,user);
+    if(user){assertNonDemo(user);assertCsrf(ctx,req,user);}
     const sessionToken=nonce(),csrf=nonce(),expiresAt=new Date(Date.now()+SESSION_SECONDS*1000).toISOString();
     const result=await transaction(ctx,async client=>{
       const challenge=(await client.query(`select * from wallet_auth_challenges where id=$1 and consumed_at is null and expires_at>now() for update`,[id])).rows[0];
@@ -105,7 +106,7 @@ export function mountWalletAuth(router:Router,ctx:CoreContext) {
     res.json({credential});
   }));
   router.delete('/auth/wallet',asyncRoute(async(req,res)=>{
-    const user=await authenticate(ctx,req);assertCsrf(ctx,req,user);
+    const user=await authenticate(ctx,req);assertNonDemo(user);assertCsrf(ctx,req,user);
     const current=(await ctx.control.query("select id,address from wallet_credentials where user_id=$1 and state='active'",[user.id])).rows[0];
     if(!current){res.json({ok:true});return;}
     const clearSession=await transaction(ctx,async client=>{

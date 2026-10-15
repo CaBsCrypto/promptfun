@@ -1,8 +1,8 @@
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { LogIn } from 'lucide-react';
 import type { Session } from '../../../shared/contracts';
 import type { WalletName } from '../../lib/wallet';
-import { api, errorMessage } from '../../lib/api';
+import { api, errorMessage, isAbort } from '../../lib/api';
 import { authenticateWallet } from './walletAuth';
 import { ErrorNotice } from '../ui';
 
@@ -14,6 +14,21 @@ export function AuthPanel({ onAuthenticated }: { onAuthenticated: (session: Sess
   const [notice, setNotice] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [demoEnabled, setDemoEnabled] = useState(false);
+  useEffect(() => {
+    const controller = new AbortController();
+    void api<{ enabled: boolean }>('/auth/demo', { signal: controller.signal })
+      .then(result => { if (!controller.signal.aborted) setDemoEnabled(result.enabled === true); })
+      .catch(cause => { if (!isAbort(cause)) setDemoEnabled(false); });
+    return () => controller.abort();
+  }, []);
+
+  async function demoLogin() {
+    setBusy(true); setError(null); setNotice(null);
+    try { const session = await api<Session>('/auth/demo', { method: 'POST' }); setPassword(''); onAuthenticated(session); }
+    catch (cause) { setError(errorMessage(cause)); }
+    finally { setBusy(false); }
+  }
 
   async function walletLogin(name: WalletName) {
     setBusy(true); setError(null); setNotice(null);
@@ -47,6 +62,7 @@ export function AuthPanel({ onAuthenticated }: { onAuthenticated: (session: Sess
   return <section className="auth-layout">
     <div className="auth-intro"><div className="studio-illustration" aria-hidden="true"><div className="studio-sheet"><span /><span /><span /><div className="studio-result"><i /><i /><i /></div></div><div className="studio-cursor" /></div><h1>De tu idea a una versión que puedes probar.</h1><p>Crea, revisa y decide qué compartir. Tu primera demo no necesita una wallet.</p><div className="inline-facts"><span>Borradores privados</span><span>Tu cuenta de IA</span><span>Publicación consciente</span></div></div>
     <div className="auth-panel"><h2>{mode === 'verify' ? 'Confirma tu correo' : mode === 'login' ? 'Entra a tu espacio' : 'Crea tu cuenta'}</h2><p className="muted">Entra con correo o wallet. Tu cuenta guarda los proyectos; OpenRouter y las operaciones de cada proyecto se conectan por separado.</p>
+      {demoEnabled && <div className="demo-entry"><button type="button" className="button button-primary full-width" disabled={busy} onClick={() => void demoLogin()}>Entrar en demo</button><p className="field-hint">Prueba el editor y guarda borradores sin registrarte. Datos de prueba privados de este navegador, sin IA ni operaciones financieras.</p></div>}
       <div className="wallet-auth-actions"><button type="button" className="button button-secondary" disabled={busy} onClick={() => void walletLogin('phantom')}>Entrar con Phantom</button><button type="button" className="button button-secondary" disabled={busy} onClick={() => void walletLogin('solflare')}>Entrar con Solflare</button></div>
       <p className="field-hint wallet-sign-note">Firmas un mensaje, sin transacción ni SOL. La primera firma crea tu cuenta si todavía no existe.</p>
       <div className="auth-divider"><span>O usa tu correo</span></div>

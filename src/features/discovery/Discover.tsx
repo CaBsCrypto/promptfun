@@ -9,7 +9,7 @@ const MarketPanel = lazy(() => import('../market/MarketPanel').then(module => ({
 
 interface PublicDetail { project: Project; version: AppVersion | null; feedback: Feedback[]; preview_url?: string | null; history:{id:string;version_id:string;published_at:string;content_hash:string;changelog:string[]}[] }
 
-export function Discover({ selectedId, onSelect, authenticated, viewerId, onLogin, revision }: { selectedId: string | null; onSelect: (id: string | null) => void; authenticated: boolean; viewerId: string | null; onLogin: () => void; revision: number }) {
+export function Discover({ selectedId, onSelect, authenticated, viewerId, onLogin, revision, isDemo = false }: { selectedId: string | null; onSelect: (id: string | null) => void; authenticated: boolean; viewerId: string | null; onLogin: () => void; revision: number; isDemo?: boolean }) {
   const [projects, setProjects] = useState<Project[]>([]);
   const [detail, setDetail] = useState<PublicDetail | null>(null);
   const [query, setQuery] = useState('');
@@ -38,7 +38,7 @@ export function Discover({ selectedId, onSelect, authenticated, viewerId, onLogi
   }, [selectedId, revision]);
   const visible = useMemo(() => { const normalized = query.trim().toLocaleLowerCase('es'); return projects.filter(project => `${project.title} ${project.description}`.toLocaleLowerCase('es').includes(normalized)); }, [projects, query]);
   async function sendComment(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault(); if (!detail?.version || !comment.trim()) return;
+    event.preventDefault(); if (isDemo || !detail?.version || !comment.trim()) return;
     setSending(true); setCommentError(null); setCommentMessage(null);
     try { await api(`/public/projects/${detail.project.id}/feedback`, { method: 'POST', body: { version_id: detail.version.id, text: comment.trim() } }); setComment(''); setCommentMessage('Comentario enviado para revisión. Gracias por compartir una observación concreta.'); }
     catch (cause) { setCommentError(errorMessage(cause)); }
@@ -51,9 +51,9 @@ export function Discover({ selectedId, onSelect, authenticated, viewerId, onLogi
       {detail.history?.length>0&&<section className="public-changelog"><h2>Historial de publicaciones</h2><ol>{detail.history.map(item=><li key={item.id}><strong>{formatDate(item.published_at)} · versión {item.version_id.slice(0,8)}</strong>{item.changelog?.length>0&&<p>{item.changelog.join(' ')}</p>}</li>)}</ol></section>}
       <div className="public-secondary"><section className="feedback-panel"><div className="section-heading"><div><h2><MessageSquare size={18} aria-hidden="true" />Conversación sobre esta versión</h2><p>Comparte qué funciona, qué cambiarías y por qué.</p></div></div>
         {detail.feedback.length ? detail.feedback.map(item => <article className="feedback-item" key={item.id}><p>{item.text}</p><span className="field-hint">{formatDate(item.created_at)} · versión {item.version_id.slice(0, 8)}</span></article>) : <p className="muted">Todavía no hay comentarios publicados.</p>}
-        {authenticated && detail.version ? <form className="comment-form" onSubmit={sendComment}><label htmlFor="public-comment">Tu comentario</label><textarea id="public-comment" rows={4} maxLength={2000} required value={comment} onChange={event => setComment(event.target.value)} disabled={sending} /><button className="button button-secondary" disabled={!comment.trim() || sending}>{sending ? 'Enviando…' : 'Enviar comentario'}</button></form> : !authenticated && <button className="text-button" onClick={onLogin}>Entrar para comentar</button>}
+        {isDemo ? <p className="muted">La demo permite leer los comentarios publicados.</p> : authenticated && detail.version ? <form className="comment-form" onSubmit={sendComment}><label htmlFor="public-comment">Tu comentario</label><textarea id="public-comment" rows={4} maxLength={2000} required value={comment} onChange={event => setComment(event.target.value)} disabled={sending} /><button className="button button-secondary" disabled={!comment.trim() || sending}>{sending ? 'Enviando…' : 'Enviar comentario'}</button></form> : !authenticated && <button className="text-button" onClick={onLogin}>Entrar para comentar</button>}
         {commentMessage && <p className="notice notice-success" role="status">{commentMessage}</p>}<ErrorNotice message={commentError} />
-      </section><div className="market-disclosure"><button className="section-disclosure" aria-expanded={marketOpen} onClick={() => setMarketOpen(!marketOpen)}><span>Apoyo y mercado Devnet</span><span>{marketOpen ? 'Cerrar' : 'Abrir'}</span></button>{marketOpen ? <Suspense fallback={<Loading>Abriendo el mercado…</Loading>}><MarketPanel key={`${detail.project.id}:${viewerId ?? 'visitor'}`} project={detail.project} viewerId={viewerId} owner={false} authenticated={authenticated} /></Suspense> : <p className="muted">Prueba el proyecto antes de decidir cómo participar.</p>}</div></div>
+      </section>{!isDemo && <div className="market-disclosure"><button className="section-disclosure" aria-expanded={marketOpen} onClick={() => setMarketOpen(!marketOpen)}><span>Apoyo y mercado Devnet</span><span>{marketOpen ? 'Cerrar' : 'Abrir'}</span></button>{marketOpen ? <Suspense fallback={<Loading>Abriendo el mercado…</Loading>}><MarketPanel key={`${detail.project.id}:${viewerId ?? 'visitor'}`} project={detail.project} viewerId={viewerId} owner={false} authenticated={authenticated} /></Suspense> : <p className="muted">Prueba el proyecto antes de decidir cómo participar.</p>}</div>}</div>
     </>}
   </div>;
   return <section className="discovery"><header className="discovery-heading"><div><h1>Proyectos que puedes probar.</h1><p>Explora versiones publicadas y conoce su próximo avance.</p></div><button className="icon-button" onClick={() => void load()} aria-label="Actualizar proyectos"><RefreshCw size={18} aria-hidden="true" /></button></header>

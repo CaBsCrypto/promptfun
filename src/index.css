@@ -73,6 +73,10 @@ main > .notice { margin: 20px 4.5%; }
 .wallet-auth-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .wallet-auth-actions .button { flex: 1 1 170px; margin-top: 0; }
 .wallet-sign-note { margin-top: 12px; }
+.demo-entry { margin: 20px 0; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.demo-entry .field-hint { margin: 10px 0 0; }
+.demo-notice { margin: 18px 4.5% 0; }
+.demo-notice p { margin: 5px 0 0; }
 .auth-divider { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 13px; margin: 23px 0; }
 .auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--line); }
 .wallet-access { width: min(900px, 92%); margin: 24px auto; padding: 20px; border: 1px solid var(--line); border-radius: 9px; background: var(--panel); }

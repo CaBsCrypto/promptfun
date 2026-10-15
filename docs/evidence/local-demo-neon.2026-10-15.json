@@ -1,0 +1,32 @@
+{
+  "test": "Real Neon SQL + local BFF demo login and private draft persistence",
+  "run": "demo-probe-20261015064339869-9dd83085",
+  "result": "FAIL",
+  "started_at": "2026-10-15T06:43:39.870Z",
+  "project_id": "silent-shape-11659103",
+  "parent_branch_id": "br-lively-mode-b8xuesrp",
+  "planned_branch_name": "demo-probe-20261015064339869-9dd83085",
+  "expires_at": "2026-10-15T08:43:39Z",
+  "checks": {},
+  "http": [],
+  "apps_plane_calls": 0,
+  "external_http_calls": 0,
+  "inference_requests": 0,
+  "financial_transactions": 0,
+  "limitations": [
+    "Technical local BFF demo identity; no managed Auth or personal extension.",
+    "Real isolated Neon control SQL; no apps-plane or S3 acceptance.",
+    "No inference, publication, RPC or financial transactions.",
+    "Restart persistence is proven only for the same origin, browser identity cookie and original server encryption key."
+  ],
+  "branch_creation_attempted": true,
+  "exact_attempt_matches": [],
+  "stage": "create one schema-only QA control branch",
+  "error_code": "NEON_CLI_FAILED_NO_AUTOMATIC_RETRY",
+  "cli_diagnostic": {
+    "http_status": null,
+    "service_error_code": null,
+    "message": "ERROR: root branches limit exceeded"
+  },
+  "finished_at": "2026-10-15T06:43:52.697Z"
+}

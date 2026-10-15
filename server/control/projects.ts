@@ -6,6 +6,7 @@ import { ownedProject, publicProject, publicVersion, transaction } from './db.js
 import { artifactHash, assertNoSecrets, hash, idempotencyKey, signPreviewToken, textInput, uuid, validateHtml } from './security.js';
 import type { CapabilityManifest } from '../../shared/contracts.js';
 import { durableMutation } from './mutations.js';
+import { assertNonDemo } from './demo-policy.js';
 
 const LEGACY_MANIFEST: CapabilityManifest = { version: 1, records: { collections: [] }, auth: false, files: false, connectors: [] };
 export function sanitizeLegacyItems(body: unknown) {
@@ -52,7 +53,7 @@ export function mountProjects(router: Router, ctx: CoreContext) {
     res.json({ versions: result.rows });
   }));
   router.post('/projects/:id/publish', asyncRoute(async (req, res) => {
-    const user = await authenticate(ctx, req); assertCsrf(ctx, req, user); const id = uuid(req.params.id); const versionId = uuid(req.body.version_id);
+    const user = await authenticate(ctx, req); assertCsrf(ctx, req, user); assertNonDemo(user); const id = uuid(req.params.id); const versionId = uuid(req.body.version_id);
     const result = await durableMutation(ctx,req,user.id,'project.publish',{id,versionId},async client => {
       const project = await client.query('select * from projects where id=$1 and owner_id=$2 for update', [id, user.id]);
       if (!project.rows[0]) throw new HttpError(404, 'PROJECT_NOT_FOUND', 'Proyecto no encontrado.');
@@ -64,7 +65,7 @@ export function mountProjects(router: Router, ctx: CoreContext) {
     },200); res.status(result.status).json(result.body);
   }));
   router.post('/projects/:id/preview-token', asyncRoute(async (req, res) => {
-    const user = await authenticate(ctx, req); assertCsrf(ctx, req, user); const id = uuid(req.params.id); await ownedProject(ctx, id, user.id);
+    const user = await authenticate(ctx, req); assertCsrf(ctx, req, user); assertNonDemo(user); const id = uuid(req.params.id); await ownedProject(ctx, id, user.id);
     let versionId: string;
     if (req.body.version_id) versionId = uuid(req.body.version_id);
     else {
@@ -79,7 +80,7 @@ export function mountProjects(router: Router, ctx: CoreContext) {
     res.set('Cache-Control', 'no-store'); res.json({ url: url.toString() });
   }));
   router.post('/projects/:id/import', asyncRoute(async (req, res) => {
-    const user = await authenticate(ctx, req); assertCsrf(ctx, req, user); const id = uuid(req.params.id);
+    const user = await authenticate(ctx, req); assertCsrf(ctx, req, user); assertNonDemo(user); const id = uuid(req.params.id);
     const key = idempotencyKey(req.get('Idempotency-Key')); const items = sanitizeLegacyItems(req.body); const manifestHash = hash(JSON.stringify(items));
     const result = await transaction(ctx, async client => {
       const project = await client.query('select * from projects where id=$1 and owner_id=$2 for update', [id, user.id]);
@@ -118,7 +119,7 @@ export function mountProjects(router: Router, ctx: CoreContext) {
       runtime_url: new URL(`/apps/${id}/versions/${project.published_version_id}`, ctx.config.runtimeOrigin).toString() });
   }));
   router.post('/public/projects/:id/feedback', asyncRoute(async (req, res) => {
-    const user = await authenticate(ctx, req); assertCsrf(ctx, req, user); const id = uuid(req.params.id); const versionId = uuid(req.body.version_id); const text = textInput(req.body.text, 'Comentario', 2000);
+    const user = await authenticate(ctx, req); assertCsrf(ctx, req, user); assertNonDemo(user); const id = uuid(req.params.id); const versionId = uuid(req.body.version_id); const text = textInput(req.body.text, 'Comentario', 2000);
     const result = await ctx.control.query(`insert into feedback(project_id,version_id,author_id,text)
       select id,$2,$3,$4 from projects where id=$1 and published_version_id=$2 returning id,project_id,version_id,text,created_at,status`, [id, versionId, user.id, text]);
     if (!result.rows[0]) throw new HttpError(409, 'VERSION_NOT_PUBLIC', 'La versión ya no está publicada.');

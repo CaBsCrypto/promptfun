@@ -1,0 +1,190 @@
+{
+  "test": "Real Neon SQL + local BFF demo login and private draft persistence",
+  "run": "demo-probe-20261015064629051-99987a62",
+  "result": "PASS",
+  "started_at": "2026-10-15T06:46:29.052Z",
+  "project_id": "silent-shape-11659103",
+  "parent_branch_id": "br-lively-mode-b8xuesrp",
+  "planned_branch_name": "creator-draft-20261015055303230-83dfbf9c-control",
+  "expires_at": "2026-10-15T07:53:03Z",
+  "reused_existing_own_qa": true,
+  "fallback_reason": "A new schema-only branch was rejected by the Free root-branch limit; operator authorized a fresh database on this task's existing QA branch. No branch was created, reset, paused or deleted.",
+  "previous_attempt_run": "demo-probe-20261015064339869-9dd83085",
+  "checks": {
+    "reused_own_qa_id_name_ttl_default_and_quarter_cu_verified": true,
+    "fresh_database_and_seven_real_migration_hashes": true,
+    "readiness_without_sql": true,
+    "two_distinct_browser_identities": true,
+    "private_project_and_exact_draft": true,
+    "csrf_403": true,
+    "other_owner_404": true,
+    "logout_401_and_same_owner_reentry": true,
+    "http_and_pool_restart_same_origin_persistence": true,
+    "provider_generation_import_preview_publication_blocked": true,
+    "no_provider_IA_wallet_or_market_rows": true,
+    "no_active_sessions_remaining": true
+  },
+  "http": [
+    {
+      "check": "readiness no SQL",
+      "status": 200
+    },
+    {
+      "check": "demo A login",
+      "status": 200
+    },
+    {
+      "check": "demo B login",
+      "status": 200
+    },
+    {
+      "check": "demo A session",
+      "status": 200
+    },
+    {
+      "check": "create private project",
+      "status": 201
+    },
+    {
+      "check": "save draft",
+      "status": 200
+    },
+    {
+      "check": "CSRF denied",
+      "status": 403
+    },
+    {
+      "check": "other owner GET denied",
+      "status": 404
+    },
+    {
+      "check": "other owner PUT denied",
+      "status": 404
+    },
+    {
+      "check": "bad Origin denied",
+      "status": 403
+    },
+    {
+      "check": "provider start blocked",
+      "status": 403
+    },
+    {
+      "check": "provider models blocked",
+      "status": 403
+    },
+    {
+      "check": "generation blocked",
+      "status": 403
+    },
+    {
+      "check": "publish blocked",
+      "status": 403
+    },
+    {
+      "check": "import blocked",
+      "status": 403
+    },
+    {
+      "check": "preview blocked",
+      "status": 403
+    },
+    {
+      "check": "public feedback blocked",
+      "status": 403
+    },
+    {
+      "check": "demo provider disconnected",
+      "status": 200
+    },
+    {
+      "check": "A logout",
+      "status": 200
+    },
+    {
+      "check": "A logged out project denied",
+      "status": 401
+    },
+    {
+      "check": "A same browser reentry",
+      "status": 200
+    },
+    {
+      "check": "A draft after reentry",
+      "status": 200
+    },
+    {
+      "check": "session after process resources restarted",
+      "status": 200
+    },
+    {
+      "check": "draft after HTTP and SQL restart",
+      "status": 200
+    },
+    {
+      "check": "session before final logout",
+      "status": 200
+    },
+    {
+      "check": "final A logout",
+      "status": 200
+    },
+    {
+      "check": "final B logout",
+      "status": 200
+    }
+  ],
+  "apps_plane_calls": 0,
+  "external_http_calls": 0,
+  "inference_requests": 0,
+  "financial_transactions": 0,
+  "limitations": [
+    "Technical local BFF demo identity; no managed Auth or personal extension.",
+    "Real isolated Neon control SQL; no apps-plane or S3 acceptance.",
+    "No inference, publication, RPC or financial transactions.",
+    "Restart persistence is proven only for the same origin, browser identity cookie and original server encryption key."
+  ],
+  "branch_created": false,
+  "branch_id": "br-silent-band-b8ci45rb",
+  "database_creation_attempted": true,
+  "migrations": [
+    {
+      "name": "202610130001_control.sql",
+      "sha256": "17d94caca5a5f846c941b04cac20a1613b016c28485faa8894083aaa305836b1"
+    },
+    {
+      "name": "202610130002_market.sql",
+      "sha256": "679e77863c0e49ba8def89c802ea7ea7f0fa7e5aeb0e89adcfc4581a4ed8564f"
+    },
+    {
+      "name": "202610130003_identity.sql",
+      "sha256": "0b0f0820d48f9e63295db2852ffe6d9f2c13a9a67948b912bcf41bd5b18f46af"
+    },
+    {
+      "name": "202610130004_publications.sql",
+      "sha256": "b0f0b61f9281392f5f71953517d673fbfa32baafed6a80d27ebbf733d277de37"
+    },
+    {
+      "name": "202610130005_wallet_auth.sql",
+      "sha256": "1e70fe162f29f73be05aab65d7d4cef99564e3ece3a8cbd2c7dced1f53d687e4"
+    },
+    {
+      "name": "202610150006_project_drafts.sql",
+      "sha256": "3ff150f90f6b31dc20e07dcfbd5068dd41e57a83462f35137bbf29c331e0301f"
+    },
+    {
+      "name": "202610150007_local_demo.sql",
+      "sha256": "01a45b2f7b5d5ac71101533bf65f569ce1b94786cc2cf1f143ce4b00ff741989"
+    }
+  ],
+  "counts": {
+    "demo_users": 2,
+    "projects": 1,
+    "drafts": 1,
+    "versions": 0,
+    "provider_grants": 0,
+    "jobs": 0,
+    "active_sessions": 0
+  },
+  "finished_at": "2026-10-15T06:46:53.560Z"
+}

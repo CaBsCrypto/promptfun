@@ -33,7 +33,7 @@ async function fixture(run:(base:string,db:ControlFixture)=>Promise<void>) {
   const ctx={control:db,apps:db,config:{solanaRpcUrl:'https://api.devnet.solana.com',marketProgramId:'',registrarKeyPath:'',platformOrigin:'http://localhost:3000'}} as unknown as CoreContext;
   app.use('/api',createMarketRouter(ctx,async req=>{
     const id=req.get('x-test-user');if(!id)throw new HttpError(401,'UNAUTHENTICATED','Inicia sesión.');
-    return {id,email:'test@example.invalid',csrf_token:'test-csrf',session_id:'test-session'};
+    return {id,email:'test@example.invalid',csrf_token:'test-csrf',session_id:'test-session',...(req.get('x-test-demo')==='true'?{is_demo:true}:{})};
   }));
   app.use((err:any,_req:any,res:any,_next:any)=>res.status(err.status||500).json({error:{code:err.code||'INTERNAL_ERROR',message:err.message}}));
   const server=app.listen(0,'127.0.0.1');await new Promise<void>(resolve=>server.once('listening',resolve));
@@ -48,6 +48,15 @@ function proof(pair:Keypair,message:string) {
   const privateKey=createPrivateKey({key:Buffer.concat([Buffer.from('302e020100300506032b657004220420','hex'),Buffer.from(pair.secretKey.subarray(0,32))]),format:'der',type:'pkcs8'});
   return sign(null,Buffer.from(message),privateKey).toString('base64');
 }
+test('HTTP demo sessions cannot prepare, sign or submit any market or funding action',()=>fixture(async(base,db)=>{
+  for(const path of [`/projects/${projectId}/wallet/challenge`,`/projects/${projectId}/wallet/verify`,
+    `/projects/${projectId}/market`,`/markets/${projectId}/quote`,`/markets/${projectId}/transactions`,
+    `/markets/${projectId}/submit`,`/projects/${projectId}/funding-intents`,`/funding-intents/${projectId}/submit`]) {
+    const response=await post(base,path,{}, {'X-Test-Demo':'true'});
+    assert.equal(response.status,403,path);assert.equal((await response.json() as any).error.code,'LOCAL_DEMO_ONLY',path);
+  }
+  assert.equal(db.challenges.size,0);assert.equal(db.bindings.size,0);assert.equal(db.project.wallet_address,null);
+}));
 test('HTTP wallet binding needs owner, correct origin and CSRF before issuing a challenge',()=>fixture(async(base,db)=>{
   const address=Keypair.generate().publicKey.toBase58(),path=`/projects/${projectId}/wallet/challenge`;
   assert.equal((await post(base,path,{address},{'X-Test-User':other})).status,404);

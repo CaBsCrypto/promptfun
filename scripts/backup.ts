@@ -22,6 +22,11 @@ const LEGACY_EMPTY_TABLES = {
   wallet_credentials:'202610130005_wallet_auth.sql',
   project_drafts:'202610150006_project_drafts.sql',
 } as const;
+// This extension only broadens existing identity/session CHECK constraints. It
+// introduces no restored columns, tables, grants or credentials. Older backups
+// may target it only when the target journal matches this exact local SQL hash.
+const DEMO_IDENTITY_MIGRATION = '202610150007_local_demo.sql';
+const COMPATIBLE_CONSTRAINT_EXTENSIONS = new Set([DEMO_IDENTITY_MIGRATION]);
 const RESTORE_LOCK = [1725162101, 8412];
 const MAX_JSON = 268435456, MAX_ROWS = 100000, MAX_OBJECTS_BYTES = 1073741824;
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -91,6 +96,10 @@ function validateBundle(bundle: BackupBundle) {
     for(const table of BACKUP_TABLES[plane])if(!Array.isArray(data[table])||data[table].length>MAX_ROWS||data[table].some(row=>!row||typeof row!=='object'||Array.isArray(row)))throw new Error('Invalid backup rows.');
   }
   for(const connection of bundle.control.provider_connections)if(connection.secret_ciphertext!=='RESTORE_REQUIRES_RECONNECT'||connection.state!=='revoked')throw new Error('Backup contains a live provider grant.');
+  for(const user of bundle.control.platform_users)if(user.auth_provider==='local_demo') {
+    if(!bundle.manifest.migrations.control.some(row=>row.name===DEMO_IDENTITY_MIGRATION))throw new Error('Demo identity requires its recorded schema migration.');
+    if(!uuid.test(user.id)||user.email!==null||typeof user.auth_subject!=='string'||!/^[a-f0-9]{64}$/.test(user.auth_subject))throw new Error('Invalid demo identity metadata.');
+  }
   const projects=new Set(bundle.control.projects.map(row=>row.id));
   for(const instance of bundle.apps.app_instances)if(!projects.has(instance.id))throw new Error('Inconsistent cross-plane snapshot; retry with writers stopped.');
   for(const row of orderedVersions(bundle.control.app_versions)) {
@@ -184,7 +193,7 @@ async function compatibleSchema(bundle:BackupBundle,plane:Plane,applied:Row[]) {
   if(!extra.length||JSON.stringify(applied.filter(row=>sourceNames.has(row.name)))!==JSON.stringify(source))return false;
   for(const row of extra) {
     const entry=Object.entries(LEGACY_EMPTY_TABLES).find(([,name])=>name===row.name);
-    if(!entry||bundle.control[entry[0]].length!==0)return false;
+    if(entry ? bundle.control[entry[0]].length!==0 : !COMPATIBLE_CONSTRAINT_EXTENSIONS.has(row.name))return false;
     const checksum=sha(await readFile(resolve('supabase/control/migrations',row.name)));
     if(row.sha256!==checksum)return false;
   }

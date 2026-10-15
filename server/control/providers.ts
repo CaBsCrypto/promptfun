@@ -5,6 +5,7 @@ import type { FreeModel } from '../../shared/contracts.js';
 import { authenticate, assertCsrf } from './auth.js';
 import { decryptSecret, encryptSecret, hash, nonce, textInput } from './security.js';
 import { transaction } from './db.js';
+import { assertNonDemo } from './demo-policy.js';
 
 export function openRouterUrl(ctx: CoreContext, path: string) {
   const base = ctx.config.openRouterBaseUrl.replace(/\/$/, '');
@@ -58,7 +59,7 @@ export async function preflight(ctx: CoreContext, userId: string, modelId: strin
 }
 export function mountProviders(router: Router, ctx: CoreContext) {
   router.get('/providers/openrouter/start', asyncRoute(async (req, res) => {
-    const user = await authenticate(ctx, req); const state = nonce(); const verifier = nonce();
+    const user = await authenticate(ctx, req); assertNonDemo(user); const state = nonce(); const verifier = nonce();
     await ctx.control.query(`insert into auth_flows(state_hash,purpose,user_id,session_id,verifier_ciphertext,expires_at)
       values($1,'openrouter',$2,$3,$4,now()+interval '10 minutes')`, [hash(state), user.id, user.session_id, encryptSecret(verifier, ctx.config.encryptionKey)]);
     const auth = new URL('/auth', ctx.config.openRouterBaseUrl);
@@ -68,7 +69,7 @@ export function mountProviders(router: Router, ctx: CoreContext) {
     res.set('Cache-Control', 'no-store'); res.redirect(auth.toString());
   }));
   router.get('/providers/openrouter/callback', asyncRoute(async (req, res) => {
-    const user = await authenticate(ctx, req); const state = textInput(req.query.state, 'Estado', 128); const code = textInput(req.query.code, 'Código', 2048);
+    const user = await authenticate(ctx, req); assertNonDemo(user); const state = textInput(req.query.state, 'Estado', 128); const code = textInput(req.query.code, 'Código', 2048);
     const flow = await ctx.control.query(`update auth_flows set consumed_at=now() where state_hash=$1 and purpose='openrouter'
       and user_id=$2 and session_id=$3 and consumed_at is null and expires_at>now() returning verifier_ciphertext`, [hash(state), user.id, user.session_id]);
     if (!flow.rows[0]) throw new HttpError(403, 'INVALID_OAUTH_STATE', 'El permiso venció, se reutilizó o pertenece a otra cuenta.');
@@ -84,17 +85,18 @@ export function mountProviders(router: Router, ctx: CoreContext) {
   }));
   router.get('/providers/openrouter', asyncRoute(async (req, res) => {
     const user = await authenticate(ctx, req);
+    if (user.is_demo) { res.json({ connected: false, state: 'demo_disabled', management_url: null }); return; }
     const result = await ctx.control.query(`select state,key_hash from provider_connections where owner_id=$1 order by created_at desc limit 1`, [user.id]);
     const row = result.rows[0]; res.set('Cache-Control', 'no-store');
     res.json({ connected: row?.state === 'active', state: row?.state || 'disconnected', management_url: row ? `https://openrouter.ai/keys/${row.key_hash}` : null });
   }));
   router.delete('/providers/openrouter', asyncRoute(async (req, res) => {
-    const user = await authenticate(ctx, req); assertCsrf(ctx, req, user);
+    const user = await authenticate(ctx, req); assertCsrf(ctx, req, user); assertNonDemo(user);
     await ctx.control.query(`update provider_connections set state='revoked',revoked_at=now(),updated_at=now() where owner_id=$1`, [user.id]);
     res.json({ connected: false, state: 'revoked', remote_revocation_required: true });
   }));
   router.get('/providers/openrouter/models', asyncRoute(async (req, res) => {
-    await authenticate(ctx, req); const models = await freeCatalog(ctx);
+    const user = await authenticate(ctx, req); assertNonDemo(user); const models = await freeCatalog(ctx);
     res.json({ models: models.map(({ id, name, context_length }) => ({ id, name, context_length })) });
   }));
 }

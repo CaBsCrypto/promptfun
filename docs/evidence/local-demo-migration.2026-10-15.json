@@ -1,0 +1,19 @@
+{
+  "operation": "main control007 rollout",
+  "started_at": "2026-10-15T06:47:21.320Z",
+  "result": "PASS",
+  "fixture_rows_written": 0,
+  "backup_verified": true,
+  "migration": {
+    "name": "202610150007_local_demo.sql",
+    "sha256": "01a45b2f7b5d5ac71101533bf65f569ce1b94786cc2cf1f143ce4b00ff741989"
+  },
+  "rls_tables": [
+    "platform_sessions",
+    "platform_users",
+    "project_drafts",
+    "projects"
+  ],
+  "browser_grants": 0,
+  "finished_at": "2026-10-15T06:47:29.412Z"
+}

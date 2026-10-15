@@ -1,0 +1,47 @@
+{
+  "checked_at": "2026-10-15T06:51:29.199Z",
+  "base_commit": "9e51ac2137e247eaf8d04d5c0790ca5767956df6",
+  "result": "PASS",
+  "commands": {
+    "bun run lint": "PASS",
+    "bun run build": "PASS",
+    "bun run test": {
+      "pass": 131,
+      "fail": 0,
+      "skip": 0
+    },
+    "bun run test:e2e": {
+      "pass": 19,
+      "fail": 0
+    }
+  },
+  "startup_production_and_external_origin_rejection": true,
+  "code_sha256": {
+    ".env.example": "869dd8f2c647177d35cbd54fd6f64af82ae801f66f07aaecd925f1439b199128",
+    "scripts/backup.ts": "280557b4918e1845525365ae5513a44b82db7e6a535f71d13b3f7ca882dfb58e",
+    "server/config.ts": "a43e22b1134637ee02b896c1557f974ed9d2bca0f2c2e7e12e12acf4cfbc4021",
+    "server/control/auth.ts": "fd0ad1c7e23ddafe1d3ae15c20e730f76a23571f36f01cc4248bc2ef6ae56ad6",
+    "server/control/demo-auth.ts": "9ff3140348f108a1e0b91803ae2f38330acd0ebee38b5c5d9b368fd67a42adb6",
+    "server/control/demo-policy.ts": "949eb07252c22f15c6f2d58c6c6749401441766f9b43669177cd397a82793e37",
+    "server/control/index.ts": "27a57d0948885f05b476c7f7672490041e9279353a92ed00e71a77633b23ac6a",
+    "server/control/jobs.ts": "928e0abecfe5b97260104e1306aad4e0b0e88737988a5770f9f2ff134c6e8052",
+    "server/control/projects.ts": "7730ec3abf337f4bc6d99a957cef7656afc60681a77778d2e65297c84cee4daa",
+    "server/control/providers.ts": "42121d884d2c66f5267e8df01d4efa042978c3c23aa89c8563ebae6e360edcb9",
+    "server/control/wallet-auth.ts": "cc580ddce0094932c6c9f17e860752424ecaef34c13b3b50e9874d2f5f23fbb5",
+    "server/market/index.ts": "8d0c6550802fa476f7ac9b290e84d6001d4712bb57130f92be49f579e032960f",
+    "server/shared.ts": "8d720515bf0ff8e2373e241067fd4a25def8625c816b327923dd62e15b985aa4",
+    "shared/contracts.ts": "2eafe4c7130677f1747623016cc373c22d4ea14613c8fe669d41977c40cec44b",
+    "src/App.tsx": "33258adecf437b7a402a2962ab9b10c71123a3c298697d3cea2dcf3874f99bb7",
+    "src/features/creator/Workbench.tsx": "3d97f9cd89436247e2589386f9a298475e53466952a21c0eb6759c1bbff27984",
+    "src/features/discovery/Discover.tsx": "50dd519483ebacb65259deb8914488f0b92e5eed0c23db28e362603d65545567",
+    "src/features/identity/AuthPanel.tsx": "50c4bdeece3a5911be60fecf83ba102dd436023876d9ce4aef39b146ddf2caa9",
+    "src/index.css": "f142aea4a87bafa4fd5899505c01052536c6c5839db88b0c0e3d019217dd4315",
+    "supabase/control/migrations/202610150007_local_demo.sql": "01a45b2f7b5d5ac71101533bf65f569ce1b94786cc2cf1f143ce4b00ff741989",
+    "tests/control.backup.test.ts": "c1a977332b9080e1ab99d4b42ba5c106d6133ac4143317e192aef87e6dbe7a86",
+    "tests/control.demo.test.ts": "edbc2d5ecd4247616ed9e75864545f49e93bde1b8fa7d724cad0adeb01f94e17",
+    "tests/e2e/demo-auth.spec.ts": "2d514f6ed8a50b9f1917a663a6216d876ecb7f1672d2403480f49df2b7c4ecf8",
+    "tests/market-api.test.ts": "cd66fea8a5bfa57676c903668b6abd1066c2e32f1ae6abc6e4ace21f27b95f22"
+  },
+  "scope": "Demo editor/persistence only. SQL/HTTP/Playwright fixtures do not prove personal Auth, actual inference, runtime app users/files or Devnet. Separate real Neon QA, main migration and IAB evidence are linked in VALIDATION.md.",
+  "final_ui_copy": "Preview empty-state wording finalized after full browser suite, build/lint passed and verified in the real IAB Neon walkthrough."
+}

@@ -71,5 +71,7 @@ La importación de `promptpump_pocs_v2` es voluntaria y filtra los campos permit
 
 ## Verificación pendiente
 
+El acceso **Entrar en demo** se ofrece sólo cuando el servidor confirma disponibilidad local. Abre proyectos/borradores privados con una identidad del navegador, muestra un aviso persistente y permite probar autosave, recarga y reentrada. IA, publicación, feedback público y controles de wallet/mercado están desactivados también en el servidor; el preview explica su alcance. No se rellenan versiones ni consumo ficticios. [Detalle y límites de recuperación](LOCAL_DEMO.md).
+
 Los tres PNG conceptuales y 16 fotogramas de marketing se inspeccionaron como referencias, no como capturas de la interfaz implementada. Se dispone de comprobaciones de compilación y pruebas declaradas en [VALIDATION.md](VALIDATION.md); falta ejecutar una revisión visual del navegador, el teclado en todos los recorridos y el flujo completo con Neon, OpenRouter y Devnet.
 

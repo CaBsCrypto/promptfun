@@ -4,7 +4,7 @@ Creador de apps con versiones persistentes, backend de datos y publicación cons
 
 La reestructuración utiliza React/Vite, una API de control y worker en Node/Bun, un runtime aislado, dos proyectos **Neon cloud** con Managed Auth y almacenamiento S3 privado, y un programa Anchor 1.2.1. El prototipo anterior está preservado en `legacy/prototype`; el flujo normal no usa proyectos o actividad simulados.
 
-**Estado:** 104 tests locales, instalación frozen, lint/build y 6 Playwright aprobados después de añadir acceso con wallet; infraestructura Neon/S3 y restore QA aislado verificados. CI aprobó 3 SBF y 3 matemáticas para el ID actual. Extensiones personales, Auth/CRUD con usuarios reales, OpenRouter, despliegue/transacciones Devnet y recuperación operativa completa siguen pendientes. G1–G3 permanecen abiertas. No hay Mainnet, dinero real ni conversión de aportes a créditos IA.
+**Estado:** 131 tests locales y 19 Playwright aprobados tras incorporar borradores persistentes y acceso demo local; lint/build aprobados. Infraestructura Neon/S3 y restore QA aislado verificados. CI aprobó 3 SBF y 3 matemáticas para el ID actual. Extensiones personales, Auth/CRUD con usuarios reales, OpenRouter y despliegue/transacciones Devnet siguen pendientes. G1–G3 permanecen abiertas. No hay Mainnet, dinero real ni conversión de aportes a créditos IA.
 
 El usuario decidió continuar el cierre de código/PRs, conectar OpenRouter después y dejar el despliegue Devnet pendiente. Este cierre no equivale a aceptar los recorridos reales aplazados.
 
@@ -65,6 +65,8 @@ bun run worker
 
 Abrir [plataforma local](http://localhost:3000). El runtime usa [127.0.0.1:4000](http://127.0.0.1:4000) y requiere una URL de app/versión; se obtiene con **Abrir app** en el proyecto. Los hostnames deben ser distintos. Usar esa pestaña superior para iniciar sesión y guardar tareas/archivos, ya que la sesión propia del runtime puede no persistir dentro del iframe entre sitios.
 
+Para probar sólo el editor y el guardado sin registrarse, aplicar la migración control007 y activar `LOCAL_DEMO_ENABLED=true` en el `.env` privado antes de arrancar. **Entrar en demo** abre una identidad privada de este navegador, identificada en pantalla. Se recupera conservando sus cookies, origen y clave de instancia; IA, publicación y mercado permanecen desactivados. El flag está apagado por defecto y se rechaza en producción. [Alcance y recuperación](docs/LOCAL_DEMO.md).
+
 Sin conexiones cloud, la entrada permite ver el diagnóstico y `/api/health` responde 503 si la base no está disponible. La UI presenta el error real; no rellena proyectos, balances o generaciones de prueba.
 
 ## Recorrido inicial
@@ -89,7 +91,7 @@ bun run test
 bun run build
 ```
 
-Playwright: `bun run test:e2e`, con Chromium instalado. El corte posterior a wallet pasó 104 tests sin skip/todo/fail (17,905 s) y 6 Playwright (5,4 s): tres smoke, uno de iframe hostil y dos de acceso con wallet usando router/SQL reales y una extensión de prueba. Instalación frozen, lint/build y CI de 3 SBF + 3 matemáticas aprobados. Los cortes de 89/4 quedan superados; no hay recorrido con extensiones personales, Auth/OpenRouter/Devnet integral aceptado. [Artefacto, fuentes y evidencias](docs/VALIDATION.md).
+Playwright: `bun run test:e2e`, con Chromium instalado y `bun run build` terminado. El corte demo pasó 131 tests sin skip/todo/fail y 19 Playwright: smoke, aislamiento de iframe, acceso con wallet técnica, recuperación y concurrencia de borradores y acceso demo. Los fixtures de navegador usan router/SQL reales; las extensiones y catálogos técnicos se identifican como pruebas. No hay recorrido con extensiones personales, Auth/OpenRouter/Devnet integral aceptado. [Resultados y límites](docs/VALIDATION.md).
 
 El repo original es [CaBsCrypto/promptfun](https://github.com/CaBsCrypto/promptfun); el análisis partió de [b8692a1](https://github.com/CaBsCrypto/promptfun/commit/b8692a1d9d89fcbde1a26702d46f9251cc2ce7e9). La reestructuración está en `codex/restructure-promptfun-devnet` y necesita completar la evidencia indicada antes de anunciar disponibilidad.
 

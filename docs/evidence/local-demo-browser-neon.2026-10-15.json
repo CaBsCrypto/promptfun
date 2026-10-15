@@ -1,0 +1,27 @@
+{
+  "test": "IAB demo project and saved task-manager prompt on dedicated Neon main",
+  "result": "PASS",
+  "observed_at": "2026-10-15T06:50:27.952Z",
+  "phase": "after",
+  "project_sha256": "d2c8b6606b3c0d5f8751c6ad9d66ac90b6db96609d269133d7862b3f6dba9ccb",
+  "owner_sha256": "0dda040372234592339172a6c1ebc687b2956a9d10e2f1d9c730bba3e39c0ce6",
+  "title_sha256": "c9300fe2bdd31d1ddcd5dc7b39edcd207dac375e6b874e7bdebfedd37a8bd82a",
+  "description_sha256": "81807e1965262b445d2bfecece5e7e8dabd17b255d8f6629325737dfe7a47908",
+  "prompt_sha256": "1d416794d2eca84470f3f133e7dec952d49b13b1ce00138c5218619db685966c",
+  "model": "",
+  "base_version_id": null,
+  "revision": 1,
+  "auth_provider": "local_demo",
+  "no_versions_jobs_or_provider_grants": true,
+  "limits": "Demo editor only; no generated application, inference or app users/files tested.",
+  "browser_steps_verified": [
+    "login demo",
+    "create project",
+    "use task-manager example",
+    "saved state",
+    "reload",
+    "logout and reenter same owner",
+    "restart actual local API process",
+    "reload and recover exact draft"
+  ]
+}

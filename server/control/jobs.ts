@@ -4,11 +4,12 @@ import { HttpError, asyncRoute } from '../shared.js';
 import { authenticate, assertCsrf } from './auth.js';
 import { jobDto, ownedProject, transaction } from './db.js';
 import { preflight } from './providers.js';
+import { assertNonDemo } from './demo-policy.js';
 import { assertNoSecrets, hash, idempotencyKey, textInput, uuid } from './security.js';
 
 export function mountJobs(router: Router, ctx: CoreContext) {
   router.post('/projects/:id/jobs', asyncRoute(async (req, res) => {
-    const user = await authenticate(ctx, req); assertCsrf(ctx, req, user); const projectId = uuid(req.params.id);
+    const user = await authenticate(ctx, req); assertCsrf(ctx, req, user); assertNonDemo(user); const projectId = uuid(req.params.id);
     const prompt = textInput(req.body.prompt, 'Prompt', 20_000); assertNoSecrets(prompt);
     const model = textInput(req.body.model, 'Modelo', 200);
     const baseId = req.body.base_version_id ? uuid(req.body.base_version_id) : null;

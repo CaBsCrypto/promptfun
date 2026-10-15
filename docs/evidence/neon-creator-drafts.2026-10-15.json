@@ -1,0 +1,151 @@
+{
+  "test": "Creator draft BFF + native Neon SQL",
+  "run": "creator-draft-20261015055303230-83dfbf9c",
+  "result": "PASS",
+  "started_at": "2026-10-15T05:53:03.231Z",
+  "ttl_expires_at": "2026-10-15T07:53:03Z",
+  "sources": {
+    "control": {
+      "project_id": "silent-shape-11659103",
+      "branch_id": "br-silent-band-b8ci45rb",
+      "name": "creator-draft-20261015055303230-83dfbf9c-control",
+      "expires_at": "2026-10-15T07:53:03Z",
+      "schema_only_requested": true
+    },
+    "apps": {
+      "project_id": "mute-cloud-08331010",
+      "branch_id": "br-curly-mouse-b7iicjhj",
+      "name": "creator-draft-20261015055303230-83dfbf9c-apps",
+      "expires_at": "2026-10-15T07:53:03Z",
+      "schema_only_requested": true
+    }
+  },
+  "checks": {
+    "migrations_control_001_to_006_apps_001_to_002": true,
+    "two_wallet_identities": true,
+    "private_project_and_draft": true,
+    "exact_whitespace": true,
+    "saved_response_retry_without_revision_bump": true,
+    "concurrent_conflict_409_without_overwrite": true,
+    "cross_owner_get_put_404": true,
+    "csrf_403": true,
+    "logout_revocation_401": true,
+    "pool_restart_and_relogin_persist_draft": true,
+    "no_provider_or_financial_activity": true
+  },
+  "http": [
+    {
+      "phase": "creator A challenge",
+      "status": 200
+    },
+    {
+      "phase": "creator A verify",
+      "status": 200
+    },
+    {
+      "phase": "creator A session",
+      "status": 200
+    },
+    {
+      "phase": "creator B challenge",
+      "status": 200
+    },
+    {
+      "phase": "creator B verify",
+      "status": 200
+    },
+    {
+      "phase": "creator B session",
+      "status": 200
+    },
+    {
+      "phase": "create private project",
+      "status": 201
+    },
+    {
+      "phase": "empty draft",
+      "status": 200
+    },
+    {
+      "phase": "save first draft",
+      "status": 200
+    },
+    {
+      "phase": "retry exact saved draft",
+      "status": 200
+    },
+    {
+      "phase": "concurrent editor 1",
+      "status": 200
+    },
+    {
+      "phase": "concurrent editor 2",
+      "status": 409
+    },
+    {
+      "phase": "stale first revision",
+      "status": 409
+    },
+    {
+      "phase": "B manipulated private draft ID",
+      "status": 404
+    },
+    {
+      "phase": "B manipulated private draft write",
+      "status": 404
+    },
+    {
+      "phase": "wrong CSRF",
+      "status": 403
+    },
+    {
+      "phase": "winning draft preserved",
+      "status": 200
+    },
+    {
+      "phase": "creator A logout",
+      "status": 200
+    },
+    {
+      "phase": "revoked session cannot read draft",
+      "status": 401
+    },
+    {
+      "phase": "creator B logout",
+      "status": 200
+    },
+    {
+      "phase": "creator A after reconnect challenge",
+      "status": 200
+    },
+    {
+      "phase": "creator A after reconnect verify",
+      "status": 200
+    },
+    {
+      "phase": "creator A after reconnect session",
+      "status": 200
+    },
+    {
+      "phase": "HTTP draft after pool reconnect and relogin",
+      "status": 200
+    },
+    {
+      "phase": "creator A final logout",
+      "status": 200
+    }
+  ],
+  "signed_messages": 3,
+  "managed_auth_requests": 0,
+  "inference_requests": 0,
+  "transaction_requests": 0,
+  "object_storage_exercised": false,
+  "restore_executed": false,
+  "attempted_branch_creation": {
+    "project_id": "mute-cloud-08331010",
+    "name": "creator-draft-20261015055303230-83dfbf9c-apps",
+    "expires_at": "2026-10-15T07:53:03Z"
+  },
+  "restore_handoff": "Fresh source IDs, URLs, expiry and expected draft are retained in ignored private state. No restore or S3 claim.",
+  "finished_at": "2026-10-15T05:53:54.723Z"
+}

@@ -44,6 +44,7 @@ before(async () => {
   await db.exec(await readFile(new URL('../supabase/control/migrations/202610130003_identity.sql', import.meta.url), 'utf8'));
   await db.exec(await readFile(new URL('../supabase/control/migrations/202610130004_publications.sql', import.meta.url), 'utf8'));
   await db.exec(await readFile(new URL('../supabase/control/migrations/202610130005_wallet_auth.sql', import.meta.url), 'utf8'));
+  await db.exec(await readFile(new URL('../supabase/control/migrations/202610150006_project_drafts.sql', import.meta.url), 'utf8'));
   for (const [id, cookie] of [[alice, aliceCookie], [bob, bobCookie]]) {
     await ctx.control.query(`insert into platform_sessions(user_id,token_hash,csrf_token,auth_token_ciphertext,expires_at) values($1,$2,$3,$4,now()+interval '1 hour')`, [id, hash(cookie), csrf,encryptSecret('fixture-auth:'+id,ctx.config.encryptionKey)]);
     await ctx.control.query(`insert into provider_connections(owner_id,secret_ciphertext,key_hash) values($1,$2,$3)`, [id, encryptSecret('fixture-key', ctx.config.encryptionKey), hash('fixture-key')]);
@@ -178,6 +179,66 @@ test('iteration persists no_changes without overwriting the immutable base', asy
   const done = await api(`/jobs/${created.body.job_id}`); assert.equal(done.body.job.status, 'no_changes'); assert.equal(done.body.job.result_version_id, v.id);
   assert.equal((await ctx.control.query('select count(*)::int as n from app_versions where project_id=$1', [p.id])).rows[0].n, 1);
 });
+test('private drafts start empty and require owner, CSRF and exact Origin without generation side effects',async()=>{
+  const p=await project(),path=`/projects/${p.id}/draft`;
+  const blank=await api(path);assert.equal(blank.status,200);
+  assert.deepEqual(blank.body.draft,{project_id:p.id,prompt:'',model:'',base_version_id:null,revision:0,updated_at:null});
+  assert.equal((await ctx.control.query('select count(*)::int as n from project_drafts where project_id=$1',[p.id])).rows[0].n,0);
+  assert.equal((await api(path,{user:'bob'})).status,404);
+  const body={prompt:'Una idea privada',model:'',base_version_id:null,revision:0};
+  assert.equal((await api(path,{method:'PUT',body,user:'bob'})).status,404);
+  assert.equal((await api(path,{method:'PUT',body,token:'wrong'})).status,403);
+  assert.equal((await api(path,{method:'PUT',body,origin:ctx.config.runtimeOrigin})).status,403);
+  const saved=await api(path,{method:'PUT',body:{...body,owner_id:bob}});assert.equal(saved.status,200);assert.equal(saved.body.draft.revision,1);
+  assert.equal((await ctx.control.query('select owner_id,published_version_id from projects where id=$1',[p.id])).rows[0].owner_id,alice);
+  assert.equal((await ctx.control.query('select count(*)::int as n from app_versions where project_id=$1',[p.id])).rows[0].n,0);
+  assert.equal((await ctx.control.query('select count(*)::int as n from generation_jobs where project_id=$1',[p.id])).rows[0].n,0);
+});
+
+test('draft revisions serialize competing writers and acknowledge an identical lost-response retry exactly once',async()=>{
+  const p=await project(),base=await version(p.id),path=`/projects/${p.id}/draft`;
+  const body={prompt:'  Primera línea\n\tsegunda línea 💡\r\n  ',model:'fixture/code:free',base_version_id:base.id,revision:0};
+  const initial=await Promise.all([api(path,{method:'PUT',body}),api(path,{method:'PUT',body})]);
+  for(const response of initial){assert.equal(response.status,200);assert.equal(response.body.draft.prompt,body.prompt);assert.equal(response.body.draft.revision,1);}
+  assert.deepEqual(initial[0].body.draft,initial[1].body.draft);
+  const replay=await api(path,{method:'PUT',body});assert.equal(replay.status,200);assert.deepEqual(replay.body.draft,initial[0].body.draft);
+  assert.equal((await ctx.control.query('select count(*)::int as n from project_drafts where project_id=$1',[p.id])).rows[0].n,1);
+  const competing=await Promise.all([
+    api(path,{method:'PUT',body:{...body,prompt:'Edición pestaña A',revision:1}}),
+    api(path,{method:'PUT',body:{...body,prompt:'Edición pestaña B',revision:1}}),
+  ]);
+  assert.deepEqual(competing.map(response=>response.status).sort(),[200,409]);
+  assert.equal(competing.find(response=>response.status===409)!.body.error.code,'DRAFT_CONFLICT');
+  const winner=competing.find(response=>response.status===200)!.body.draft;assert.equal(winner.revision,2);
+  assert.equal((await api(path,{method:'PUT',body})).status,409);
+  assert.deepEqual((await api(path)).body.draft,winner);
+  const explicit=await api(path,{method:'PUT',body:{prompt:'Conservo mi edición tras revisar el conflicto',model:'',base_version_id:null,revision:winner.revision}});
+  assert.equal(explicit.status,200);assert.equal(explicit.body.draft.revision,3);
+  assert.equal((await ctx.control.query('select count(*)::int as n from app_versions where project_id=$1',[p.id])).rows[0].n,1);
+  assert.equal((await ctx.control.query('select published_version_id from projects where id=$1',[p.id])).rows[0].published_version_id,null);
+});
+
+test('draft validation and database permissions reject foreign bases, invalid input and public prompt leakage',async()=>{
+  const p=await project(),other=await project(),foreign=await version(other.id),path=`/projects/${p.id}/draft`;
+  const body={prompt:'private autosave never public',model:'',base_version_id:null,revision:0};
+  assert.equal((await api(path,{method:'PUT',body:{...body,base_version_id:foreign.id}})).body.error.code,'INVALID_BASE_VERSION');
+  for(const invalid of [{prompt:'x'.repeat(20001)},{prompt:String.fromCharCode(0)},{prompt:String.fromCharCode(0xd800)},{model:'x'.repeat(201)},
+    {model:'bad\nmodel'},{revision:-1},{revision:0.5},{revision:'0'},{base_version_id:undefined}])
+    assert.equal((await api(path,{method:'PUT',body:{...body,...invalid}})).status,422);
+  assert.equal((await api(path,{method:'PUT',body:{...body,prompt:'sk-or-v1-'+ 'a'.repeat(30)}})).status,422);
+  await assert.rejects(ctx.control.query('insert into project_drafts(project_id,prompt,model,base_version_id,revision) values($1,$2,$3,$4,1)',[p.id,'test','',foreign.id]),/foreign key/i);
+  const saved=await api(path,{method:'PUT',body});assert.equal(saved.status,200);
+  for(const role of ['anon','authenticated']){
+    await ctx.control.query('set role '+role);
+    await assert.rejects(ctx.control.query('select * from project_drafts'),/permission denied/i);
+    await ctx.control.query('reset role');
+  }
+  const v=await version(p.id);
+  assert.equal((await api(`/projects/${p.id}/publish`,{method:'POST',body:{version_id:v.id},key:'publish-private-draft-check'})).status,200);
+  const publicView=await api(`/public/projects/${p.id}`,{user:'public'});assert.equal(publicView.status,200);
+  assert.ok(!JSON.stringify(publicView.body).includes(body.prompt));assert.equal(publicView.body.project.draft,undefined);
+});
+
 test('a submitted uncertain request survives real SQL recovery without a second inference', async () => {
   const p = await project(); const body = { prompt: 'Prueba pérdida de respuesta', model: 'fixture/code:free' };
   const created = await api(`/projects/${p.id}/jobs`, { method: 'POST', body, key: 'uncertain-sql-job-1' }); assert.equal(created.status, 202);

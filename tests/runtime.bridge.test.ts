@@ -55,3 +55,39 @@ test('bridge rejects a wrong sender/origin and never retries an authorization re
   await gateway.receive({ source: gateway.source, origin: 'null', data: message });
   assert.equal(requests, 1); assert.equal(gateway.results.length, 1); assert.equal(gateway.results[0].error, 'Capability denied');
 });
+
+test('SDK attachment deletion crosses only the trusted bridge and preserves gateway authorization failures', async () => {
+  const messages: any[] = [], callbacks: Record<string, (...args: any[]) => void> = {}, window: any = {};
+  const parent = { postMessage: (message: any) => messages.push(message) };
+  runInNewContext(APP_SDK, { window, crypto: webcrypto, parent,
+    addEventListener: (name: string, callback: any) => { callbacks[name] = callback; }, setTimeout: () => 1, clearTimeout: () => {} });
+  const requests: { url: string; init: RequestInit }[] = [];
+  let denied = false;
+  const gateway = bridge(async (url, init) => {
+    if (url.endsWith('/session')) return Response.json({ user: { id: 'fixture-app-user' }, csrf_token: 'fixture-csrf' });
+    requests.push({ url, init });
+    return denied ? Response.json({ error: { message: 'Archivo no encontrado.' } }, { status: 404 }) : Response.json({ ok: true });
+  });
+  await new Promise<void>(resolve => setImmediate(resolve));
+  const fileId = '5f0405eb-22f5-4896-9d1c-a02326ffb3ae';
+  const deleted = window.promptfun.files.delete(fileId);
+  await gateway.receive({ source: {}, origin: 'null', data: messages[0] });
+  await gateway.receive({ source: gateway.source, origin: 'https://other-app.invalid', data: messages[0] });
+  assert.equal(requests.length, 0);
+  await gateway.receive({ source: gateway.source, origin: 'null', data: messages[0] });
+  callbacks.message({ source: parent, data: gateway.results[0] });
+  assert.equal((await deleted).ok, true);
+  assert.equal(requests.length, 1); assert.equal(requests[0].url, '/apps/fixture-app/api/files/' + fileId);
+  assert.equal(requests[0].init.method, 'DELETE'); assert.equal(requests[0].init.body, '{}');
+  assert.equal(requests[0].init.credentials, 'same-origin');
+  assert.equal((requests[0].init.headers as Record<string, string>)['X-CSRF-Token'], 'fixture-csrf');
+  assert.equal((requests[0].init.headers as Record<string, string>)['X-App-Version'], 'fixture-version');
+  assert.doesNotMatch(JSON.stringify(gateway.results), /fixture-csrf|session_token|provider/);
+
+  denied = true;
+  const rejected = assert.rejects(window.promptfun.files.delete(fileId), /Archivo no encontrado\./);
+  await gateway.receive({ source: gateway.source, origin: 'null', data: messages[1] });
+  callbacks.message({ source: parent, data: gateway.results[1] });
+  await rejected;
+  assert.equal(requests.length, 2, 'A rejected deletion must not be retried or reported as success.');
+});

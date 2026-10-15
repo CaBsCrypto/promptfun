@@ -23,5 +23,7 @@ La suite completa post-wallet pasó 104 tests y 6 Playwright; supera el corte de
 
 ## Orden de cierre
 
+**Prioridad del 15 de octubre: creador completo.** Se añaden borradores privados con autosave y revisión optimista, recuperación del proyecto activo, errores recuperables y consulta manual del resultado incierto. Las pruebas locales, de navegador y Neon QA se registran en [VALIDATION.md](VALIDATION.md); el [recorrido con cuentas reales](CREATOR_ACCEPTANCE.md) mantiene G1 abierta hasta generar, usar, iterar y publicar la app de tareas. La siguiente fase será una beta online pequeña; el despliegue y las operaciones Devnet conservan su aplazamiento independiente.
+
 H01 aporta una base navegable y reproducible. H02 y H04 deben demostrar las fronteras con cuentas reales; H03 necesita la generación gratuita efectiva. La publicación de una versión y el mercado se verifican en H05, con artefacto/autoridades/red coincidentes. H06 reúne resultados y sólo cierra los criterios satisfechos. No hay autorización de Mainnet ni de administración de fondos IA; G4 queda fuera de esta entrega.
 

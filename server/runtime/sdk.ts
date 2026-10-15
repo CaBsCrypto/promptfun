@@ -21,7 +21,7 @@ export const APP_SDK = `(() => {
      if(file.size>5242880)throw new Error('El máximo por archivo es 5 MiB.');
      const bytes=new Uint8Array(await file.arrayBuffer()); let binary=''; for(let i=0;i<bytes.length;i+=8192)binary+=String.fromCharCode(...bytes.subarray(i,i+8192));
      return call('files.upload',{name:file.name,mime_type:file.type||'application/octet-stream',base64:btoa(binary),request_id:requestId()});
-   },download:id=>call('files.download',{id})}, connectors:{invoke:(name,args)=>call('connectors.invoke',{name,args})}
+   },download:id=>call('files.download',{id}),delete:id=>call('files.delete',{id})}, connectors:{invoke:(name,args)=>call('connectors.invoke',{name,args})}
  });
 })();`;
 
@@ -62,6 +62,7 @@ export const RUNTIME_BRIDGE = `(() => {
   'records.update':a=>api('/records/'+encodeURIComponent(a.collection)+'/'+encodeURIComponent(a.id),'PATCH',{data:a.data}),
   'records.delete':a=>api('/records/'+encodeURIComponent(a.collection)+'/'+encodeURIComponent(a.id),'DELETE',{}),
   'files.list':()=>api('/files'), 'files.upload':a=>api('/files','POST',a,a.request_id), 'files.download':a=>api('/files/'+encodeURIComponent(a.id)),
+  'files.delete':a=>api('/files/'+encodeURIComponent(a.id),'DELETE',{}),
   'connectors.invoke':a=>api('/connectors','POST',a)
  };
  let inflight=0;

@@ -4,6 +4,8 @@ Revisión: 13 de octubre de 2026. Sustituye las decisiones abiertas de los docum
 
 ## Resultado buscado
 
+**Prioridad aprobada el 15 de octubre:** completar el recorrido del creador antes de una beta online. El editor conserva automáticamente texto, modelo y versión base en un borrador privado por proyecto; recargar recupera también el proyecto activo. Los conflictos entre pestañas requieren elegir una copia. Una generación incierta permite seguir editando y guardar, pero no repetir el intento equivalente. La cuenta OpenRouter personal y el despliegue Devnet siguen pendientes; las mejoras de código no cierran por sí mismas G1. [Recorrido de aceptación](CREATOR_ACCEPTANCE.md).
+
 Una persona crea una app de tareas con archivos, itera sobre una versión existente, conserva sus datos y publica conscientemente una versión. Otra persona descubre esa versión, la prueba y aporta feedback. El proyecto puede habilitar un token de apoyo negociable y aportes directos en **Solana Devnet**, con importes y transacciones verificables. Crear o probar la app no requiere wallet.
 
 La entrega utiliza una cuenta propia de OpenRouter y una ruta de modelos gratuitos elegibles. La disponibilidad, cuota y respuesta dependen del proveedor; un modelo gratuito no garantiza una generación exitosa. No hay sustitución automática por un modelo de pago. Los SOL y tokens de Devnet no pagan inferencia.

@@ -51,6 +51,7 @@ async function seeded() {
   }
   await control.db.query('insert into projects(id,owner_id,title) values($1,$2,$3)',[project,owner,'Backup fixture']);
   for(const [id,parent,source] of [[base,null,html],[latest,base,html2]])await control.db.query('insert into app_versions(id,project_id,parent_version_id,prompt,html,manifest,content_hash) values($1,$2,$3,$4,$5,$6,$7)',[id,project,parent,'private prompt',source,JSON.stringify(manifest),artifactHash(source!,manifest)]);
+  await control.db.query('insert into project_drafts(project_id,prompt,model,base_version_id,revision) values($1,$2,$3,$4,7)',[project,'  Borrador privado\n\tcon espacios 💡\n  ','fixture/code:free',latest]);
   await control.db.query('update projects set published_version_id=$2 where id=$1',[project,latest]);
   await control.db.query('insert into publication_history(project_id,version_id) values($1,$2)',[project,latest]);
   await control.db.query("insert into platform_mutation_receipts(user_id,idempotency_key,kind,request_hash,response_status,response) values($1,'fixture_project_publish','project.publish',$2,200,$3)",[owner,hash('fixture-publish'),JSON.stringify({project:{id:project,published_version_id:latest}})]);
@@ -98,6 +99,8 @@ test('real SQL backup/restore preserves versions, users, files and financial evi
     assert.equal((await a.db.query('select published_version_id from projects')).rows[0].published_version_id,source.latest);
     assert.equal((await a.db.query('select version_id from publication_history')).rows[0].version_id,source.latest);assert.equal((await a.db.query('select idempotency_key from platform_mutation_receipts')).rows[0].idempotency_key,'fixture_project_publish');
     assert.equal((await a.db.query('select count(*)::int as n from app_versions')).rows[0].n,2);assert.equal((await b.db.query('select data from app_records')).rows[0].data.title,'Preserved task');
+    const restoredDraft=(await a.db.query('select project_id,prompt,model,base_version_id,revision,updated_at from project_drafts')).rows;
+    assert.deepEqual(restoredDraft,(await source.control.db.query('select project_id,prompt,model,base_version_id,revision,updated_at from project_drafts')).rows);
     assert.equal((await b.db.query('select auth_subject from app_users')).rows[0].auth_subject,source.subject);
     const restoredWallets=(await a.db.query('select address,state,revoked_at from wallet_credentials order by address')).rows;
     assert.deepEqual(restoredWallets,(await source.control.db.query('select address,state,revoked_at from wallet_credentials order by address')).rows);
@@ -144,6 +147,55 @@ test('restore configuration requires explicit target credentials and never falls
   assert.equal(sourceFingerprints({...sourceConfig,neonStorageEndpoint:'https://SOURCE-storage.example.invalid.:443/'}).objects,sourceFingerprints(sourceConfig).objects);
   assert.notEqual(sourceFingerprints({...sourceConfig,neonStorageBucket:'files-v2'}).objects,sourceFingerprints(sourceConfig).objects);
   assert.throws(()=>restoreConfig(sourceConfig,{...env,RESTORE_CONTROL_DATABASE_URL:'postgresql://other:fixture@EP-SOURCE-CONTROL-pooler.neon.tech.:5432/%64b?sslmode=verify-full'}),/isolated/);
+});
+
+test('older v1 backups restore with empty new tables only across the exact known wallet/draft migrations',async()=>{
+  const source=await seeded();
+  try {
+    for(const beforeWallet of [false,true]) {
+      const a=await database('control'),b=await database('apps'),objects=memoryStore(),directory=await temp();
+      try {
+        await writeBackup(directory,source.control.db,source.apps.db,source.objects.store,sourceFingerprints(sourceConfig));
+        const data=JSON.parse(await readFile(resolve(directory,'control.json'),'utf8'));
+        const manifest=JSON.parse(await readFile(resolve(directory,'manifest.json'),'utf8'));
+        delete data.project_drafts;if(beforeWallet)delete data.wallet_credentials;
+        const text=JSON.stringify(data);manifest.hashes.control=hash(text);
+        await writeFile(resolve(directory,'control.json'),text);await writeFile(resolve(directory,'manifest.json'),JSON.stringify(manifest));
+        await assert.rejects(verifyBackup(directory),/missing a table/);
+        manifest.migrations.control=manifest.migrations.control.filter((row:any)=>row.name!=='202610150006_project_drafts.sql'&&(!beforeWallet||row.name!=='202610130005_wallet_auth.sql'));
+        const marker=JSON.stringify(manifest);await writeFile(resolve(directory,'manifest.json'),marker);
+        const verified=await verifyBackup(directory);assert.deepEqual(verified.control.project_drafts,[]);
+        if(beforeWallet)assert.deepEqual(verified.control.wallet_credentials,[]);
+        const sha=(await a.db.query("select sha256 from promptfun_migrations where name='202610150006_project_drafts.sql'")).rows[0].sha256;
+        await a.db.query("update promptfun_migrations set sha256=$1 where name='202610150006_project_drafts.sql'",['f'.repeat(64)]);
+        await assert.rejects(restoreBackup(directory,a.db,b.db,objects.store,sourceFingerprints(targetConfig)),/schema differs/);
+        await a.db.query("update promptfun_migrations set sha256=$1 where name='202610150006_project_drafts.sql'",[sha]);
+        await a.db.query('insert into promptfun_migrations(name,sha256) values($1,$2)',['202610150007_unknown.sql','a'.repeat(64)]);
+        await assert.rejects(restoreBackup(directory,a.db,b.db,objects.store,sourceFingerprints(targetConfig)),/schema differs/);
+        await a.db.query("delete from promptfun_migrations where name='202610150007_unknown.sql'");
+        assert.equal(objects.puts(),0);
+        assert.equal((await restoreBackup(directory,a.db,b.db,objects.store,sourceFingerprints(targetConfig))).restored,true);
+        assert.equal((await a.db.query('select count(*)::int as n from project_drafts')).rows[0].n,0);
+        assert.equal((await a.db.query('select count(*)::int as n from wallet_credentials')).rows[0].n,beforeWallet?0:2);
+        assert.equal((await a.db.query('select published_version_id from projects')).rows[0].published_version_id,source.latest);
+        assert.equal((await b.db.query('select data from app_records')).rows[0].data.title,'Preserved task');
+        assert.equal(await readFile(resolve(directory,'control.json'),'utf8'),text);
+        assert.equal(await readFile(resolve(directory,'manifest.json'),'utf8'),marker);
+      } finally {await Promise.all([a.engine.close(),b.engine.close()]);await removeTemp(directory);}
+    }
+  } finally {await Promise.all([source.control.engine.close(),source.apps.engine.close()]);}
+});
+
+test('backup can read an actual pre-draft schema without manufacturing a migration journal',async()=>{
+  const source=await seeded(),directory=await temp();
+  try {
+    await source.control.db.query('drop table project_drafts');
+    await source.control.db.query("delete from promptfun_migrations where name='202610150006_project_drafts.sql'");
+    const manifest=await writeBackup(directory,source.control.db,source.apps.db,source.objects.store,sourceFingerprints(sourceConfig));
+    assert.equal(manifest.migrations.control.some(row=>row.name==='202610150006_project_drafts.sql'),false);
+    assert.deepEqual((await verifyBackup(directory)).control.project_drafts,[]);
+    assert.equal((await source.control.db.query("select to_regclass('public.project_drafts') as name")).rows[0].name,null);
+  } finally {await Promise.all([source.control.engine.close(),source.apps.engine.close()]);await removeTemp(directory);}
 });
 
 test('migration journal is idempotent, checksum guarded and rolls back failed DDL in PostgreSQL',async()=> {

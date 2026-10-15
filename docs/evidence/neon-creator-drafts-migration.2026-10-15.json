@@ -1,0 +1,18 @@
+{
+  "operation": "main control006 rollout",
+  "started_at": "2026-10-15T05:55:01.458Z",
+  "result": "PASS",
+  "fixture_rows_written": 0,
+  "backup_verified": true,
+  "backup_tables": {
+    "control": 19,
+    "apps": 6
+  },
+  "migration": {
+    "name": "202610150006_project_drafts.sql",
+    "sha256": "3ff150f90f6b31dc20e07dcfbd5068dd41e57a83462f35137bbf29c331e0301f"
+  },
+  "rls_enabled": true,
+  "browser_grants": 0,
+  "finished_at": "2026-10-15T05:55:09.336Z"
+}

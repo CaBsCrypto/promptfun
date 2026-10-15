@@ -1,0 +1,66 @@
+{
+  "test": "Creator completion local checks",
+  "recorded_at": "2026-10-15T06:06:19.371Z",
+  "result": "PASS",
+  "code_commit": "a814de860394c03b0d806eda35a4a4224ddb3cda",
+  "pull_request": "https://github.com/CaBsCrypto/promptfun/pull/3",
+  "tools": {
+    "node": "24.14.0",
+    "bun": "1.4.2"
+  },
+  "checks": {
+    "typescript": "PASS",
+    "vite_build": "PASS",
+    "unit_sql_http_controller_bridge": {
+      "total": 119,
+      "pass": 119,
+      "failed": 0,
+      "skipped": 0
+    },
+    "playwright": {
+      "total": 16,
+      "pass": 16,
+      "failed": 0
+    }
+  },
+  "source_sha256": {
+    "src/App.tsx": "8b5caefd0c13d7075c81854d48ecad8043e5ae617347ec5ad62fc117b1281563",
+    "src/features/creator/Workbench.tsx": "b9ad1b2b45ab6a765cfa9f5969919610a0e5c83342da1e41fad5d93653d08e2e",
+    "src/features/creator/ProviderPanel.tsx": "1afd898c7ccc7c92022912a120cf520a3a75cf2305df512eaf5f1ef6ebf461a0",
+    "src/features/creator/JobSummary.tsx": "b66d547226dcd874eb30113c968cab7b6289c491c1bc1aaa482376081322a01e",
+    "src/features/creator/job-state.ts": "27756b450a3eab5aa45f0cfff26333bcde7fc11c6301e03625b018edf9fb4275",
+    "src/features/creator/DraftStatus.tsx": "4ddd3a84168089c48e3b96e45372f590a365fd902b7617de0ad991384fb50c51",
+    "src/features/creator/useProjectDraft.ts": "530d11a543420bdb4459bb9829ac6cc9cc4f5cbd6783d58d15ea573bfe8b8ee2",
+    "src/lib/project-draft.ts": "4b4f7fe4607498c771e810444ad398a55cf3213658ae6a1527b4c3558d56bb2a",
+    "src/lib/api.ts": "885ee8f5321bdcbb62bce4c9c41f925157e13488fc7747c12991432a2ebb8ddf",
+    "server/control/drafts.ts": "4e503e5f3acb01f5624b658aebffe5ec67358bd41d1a1b9a8342aa2c5f25b975",
+    "server/control/worker.ts": "75bfc075d164e2f0a66d05ae126b5497e88e6951b86e4d860016e63643ec45ce",
+    "server/runtime/sdk.ts": "9e5840c2e85ea61d496a19637388477009e34a4f28b59d89949c5f609cd70955",
+    "scripts/backup.ts": "76cc23017a9d03da07b92104c140e2c092774cf45259a50ae475ec903e397dcf",
+    "shared/contracts.ts": "b07b064f324a45c035b37d1c608decb96f0b255277f995eee79592935f6eaf67",
+    "supabase/control/migrations/202610150006_project_drafts.sql": "3ff150f90f6b31dc20e07dcfbd5068dd41e57a83462f35137bbf29c331e0301f"
+  },
+  "log_sha256": {
+    "unit": "729f81b2dac020cc04ef770611aaa4a8632939330bb9ac041007e38612fc5fcc",
+    "browser": "94c69b091aecbc0c2226267458fe45d809711d8db0964ffef38d71dea1e43240"
+  },
+  "fixtures": {
+    "sql_engine": "PGlite real PostgreSQL WASM",
+    "wallet": "technical injected extension double",
+    "provider_catalogue": "explicit local HTTP double",
+    "transport_failures_and_delays": "abort or buffer genuine router responses; no generated result fabricated"
+  },
+  "visual_review": {
+    "desktop": "1440px PASS",
+    "mobile": "360px PASS, no horizontal overflow",
+    "full_accessibility_audit": false
+  },
+  "personal_wallet_extension_verified": false,
+  "managed_auth_creator_app_flow_verified": false,
+  "live_openrouter_inference_sent": false,
+  "real_devnet_transactions_sent": false,
+  "limitations": [
+    "Does not close G1/G2/G3; personal free generation, real app users/attachments and publication acceptance remain pending.",
+    "CI results are tracked on the PR separately; this records the local run on the code commit."
+  ]
+}

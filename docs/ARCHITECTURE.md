@@ -58,11 +58,17 @@ OpenRouter utiliza PKCE, state de un solo uso y credenciales cifradas del lado d
 
 ## Persistencia y generación
 
+Actualización del 15 de octubre: `project_drafts` almacena prompt exacto, modelo, versión base del mismo proyecto y revisión independiente de las versiones inmutables. `GET /api/projects/:id/draft` devuelve revisión 0 cuando no existe; `PUT` requiere los tres campos y la revisión leída, verifica propietario/Origin/CSRF y serializa por proyecto. Una revisión desactualizada devuelve `409 DRAFT_CONFLICT`; un reenvío idéntico de la revisión inmediatamente anterior reconoce el guardado ya confirmado sin otra escritura. La migración control 006 aplica RLS y revoca acceso de roles de navegador. Ninguna respuesta pública incorpora el borrador.
+
+El editor guarda después de 800 ms sin cambios y serializa las escrituras, conservando las ediciones realizadas durante una petición. Antes de generar, cambiar proyecto, salir de la vista, cerrar sesión o redirigir a OpenRouter espera la confirmación del servidor. Un fallo bloquea esa salida y conserva el texto local; cerrar o recargar con cambios pendientes activa el aviso del navegador. El borrador vive en el servidor, sin copiar prompts a almacenamiento del navegador. El identificador del proyecto activo se conserva en la URL y sólo se selecciona entre los proyectos autorizados.
+
+Backup/restore incluye borradores y revisiones. Los respaldos anteriores a 005/006 pueden omitir únicamente las tablas nuevas conocidas cuando su journal no declara esas migraciones; los hashes originales se verifican antes de normalizar tablas vacías en memoria. Un destino con esas migraciones adicionales debe coincidir con sus SHA locales; cualquier otro drift sigue rechazado. No se fabrican journals ni se restauran sesiones o claves del proveedor.
+
 El control almacena usuarios, sesiones, proyectos, versiones, conexiones, jobs, intentos, recibos, feedback, intenciones y verificación de mercado. Una versión conserva HTML, manifiesto, prompt privado, hash, versión padre y changelog. `published_version_id` selecciona el artefacto público; una candidata nueva no lo reemplaza. Crear proyecto y publicar guardan recibos durables de idempotencia en la misma transacción que el cambio. El historial de publicaciones es inmutable y sólo expone metadata pública, hash y changelog; no prompts o borradores.
 
 El worker obtiene jobs con bloqueo y lease. Distingue preparar, enviar y recibir una inferencia; reenvío HTTP idempotente no crea un segundo job. Si un lease vence después del envío, el job pasa a `uncertain` y no vuelve a enviar automáticamente. Los recibos de consumo son independientes del resultado de generación. Una respuesta válida puede terminar sin cambios; un consumo desconocido no se sustituye por cero. La conciliación consulta el recibo del proveedor cuando dispone de un request ID y conserva evidencia de intentos.
 
-Un job `uncertain` bloquea otra generación del mismo actor, proyecto, versión base y prompt con `409 GENERATION_REVIEW_REQUIRED`, aunque cambien el modelo o la clave de idempotencia. Reutilizar la clave original devuelve el job existente. Conciliar un recibo de consumo no demuestra que aquella ejecución terminó ni desbloquea una generación equivalente; no existe todavía una resolución manual en la UI.
+Un job `uncertain` bloquea otra generación del mismo actor, proyecto, versión base y prompt con `409 GENERATION_REVIEW_REQUIRED`, aunque cambien el modelo o la clave de idempotencia. Reutilizar la clave original devuelve el job existente. La UI detiene el polling, indica «Requiere revisión» y permite consultar manualmente `GET /jobs/:id`; esa consulta no reenvía inferencia ni resuelve la ejecución. Conciliar un recibo de consumo no demuestra que aquella ejecución terminó ni desbloquea una generación equivalente. Sólo queued/running/validating mantienen actividad automática; resultado y consumo se presentan por separado.
 
 La versión base y su fuente/manifiesto llegan al modelo. El resultado se valida contra un manifiesto acotado: colecciones `tasks`, `notes`, `items`, `attachments`, auth, archivos y el conector permitido. El modelo devuelve un artefacto; nunca ejecuta migraciones o servidores arbitrarios.
 
@@ -70,7 +76,7 @@ La versión base y su fuente/manifiesto llegan al modelo. El resultado se valida
 
 El outer frame confiable puede operar su sesión del runtime. El iframe interior usa sandbox sin `allow-same-origin`, CSP y SDK inyectado; su origen es opaco. El bridge acepta mensajes sólo del iframe esperado, con canal, método y estructura permitidos, tamaño máximo y concurrencia acotada. El SDK no contiene secretos.
 
-Las generaciones que usan registros, archivos o conectores declaran `auth: true`. El manifiesto admite `connectors: []` o `connectors: ['github.repository']`. `records.update` reemplaza el objeto `data` completo; la app debe combinar los campos actuales con los cambios que desea guardar.
+Las generaciones que usan registros, archivos o conectores declaran `auth: true`. El manifiesto admite `connectors: []` o `connectors: ['github.repository']`. `records.update` reemplaza el objeto `data` completo; la app debe combinar los campos actuales con los cambios que desea guardar. El SDK de archivos expone `files.upload(File)`, `files.list()`, `files.download(id)` y `files.delete(id)`; el borrado devuelve `{ok: true}` a través del mismo gateway con autenticación y CSRF.
 
 Cada operación identifica versión, manifiesto, app y usuario autorizado. El gateway realiza CRUD por app/usuario; cambiar app_id, collection o ID no concede acceso a otro tenant. Las tablas de datos no conceden acceso directo amplio a una sesión managed-auth. La UI de login/signup vive en el documento confiable, no en el HTML generado.
 
@@ -85,6 +91,7 @@ La API de plataforma está bajo `/api`; mutaciones con sesión exigen `Origin` y
 | Sesión | `GET /session`, `POST /auth/login\|signup\|verify-email\|logout`; Google no configurado en Neon |
 | Acceso wallet | `POST /auth/wallet/challenge\|verify`, `GET\|DELETE /auth/wallet`; login opcional o vínculo explícito, sin transacción |
 | Creador | `GET\|POST /projects`, detalle, actualización, versiones, jobs, importación privada, publicación y preview-token |
+| Borrador privado | `GET\|PUT /projects/:id/draft`: `{prompt,model,base_version_id,revision}`; respuesta `{draft}` con revisión/fecha; conflicto explícito `409 DRAFT_CONFLICT` |
 | Proveedor | Estado/conexión OpenRouter, redirección PKCE, revocación y modelos elegibles |
 | Público | Listado/detalle publicado, preview URL, feedback por versión y moderación del propietario |
 | Mercado | Wallet challenge/verify, registro explícito, quote, transacción preparada, submit y conciliación |

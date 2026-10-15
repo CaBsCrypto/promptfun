@@ -5,6 +5,11 @@ export interface Project {
   published_version_id: string | null; created_at: string; updated_at: string;
   wallet_address?: string | null;
 }
+export interface ProjectDraft {
+  project_id: string; prompt: string; model: string; base_version_id: string | null;
+  revision: number; updated_at: string | null;
+}
+export type SaveProjectDraft = Pick<ProjectDraft, 'prompt' | 'model' | 'base_version_id' | 'revision'>;
 export interface CapabilityManifest {
   version: 1;
   records: { collections: string[] };

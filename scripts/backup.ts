@@ -11,11 +11,17 @@ import { artifactHash, validateManifest } from '../server/control/security.js';
 import { migrateClient } from './migrate.js';
 
 export const BACKUP_TABLES = {
-  control: ['platform_users','wallet_credentials','projects','app_versions','provider_connections','free_quota_days','generation_jobs','generation_attempts','usage_receipts',
+  control: ['platform_users','wallet_credentials','projects','app_versions','project_drafts','provider_connections','free_quota_days','generation_jobs','generation_attempts','usage_receipts',
     'migration_batches','feedback','project_wallet_bindings','markets','market_quotes','funding_intents','solana_transactions','publication_history','platform_mutation_receipts'],
   apps: ['app_instances','app_users','app_memberships','app_records','app_files','app_mutation_receipts'],
 } as const;
 const EXCLUDED = ['platform_sessions','wallet_auth_challenges','auth_flows','project_wallet_challenges','app_sessions','neon_auth','provider_secret_ciphertexts'];
+// Only these known schema extensions can be empty when reading older v1 backups.
+// This never fabricates credentials or upgrades a source migration journal.
+const LEGACY_EMPTY_TABLES = {
+  wallet_credentials:'202610130005_wallet_auth.sql',
+  project_drafts:'202610150006_project_drafts.sql',
+} as const;
 const RESTORE_LOCK = [1725162101, 8412];
 const MAX_JSON = 268435456, MAX_ROWS = 100000, MAX_OBJECTS_BYTES = 1073741824;
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -39,12 +45,18 @@ export function sourceFingerprints(config: Config) {
 async function snapshot(db: BackupDatabase, plane: Plane) {
   const data: Record<string, Row[]> = {}; await db.query('begin isolation level repeatable read read only');
   try {
+    const migrations=(await db.query('select name,sha256 from public.promptfun_migrations order by name')).rows;
     for(const table of BACKUP_TABLES[plane]) {
+      const introduced=plane==='control'?LEGACY_EMPTY_TABLES[table as keyof typeof LEGACY_EMPTY_TABLES]:undefined;
+      if(introduced&&!migrations.some(row=>row.name===introduced)) {
+        const present=(await db.query('select to_regclass($1) as name',['public.'+table])).rows[0]?.name;
+        if(present)throw new Error('Backup table exists without its recorded migration.');
+        data[table]=[];continue;
+      }
       const rows = (await db.query(`select * from public.${identifier(table)} limit ${MAX_ROWS+1}`)).rows;
       if(rows.length>MAX_ROWS)throw new Error('Backup row limit exceeded.');
       data[table]=rows;
     }
-    const migrations=(await db.query('select name,sha256 from public.promptfun_migrations order by name')).rows;
     await db.query('commit');return {data,migrations};
   } catch(error) {await db.query('rollback').catch(()=>{});throw error;}
 }
@@ -68,16 +80,28 @@ function validateBundle(bundle: BackupBundle) {
   for(const value of Object.values(manifest.source || {}))if(typeof value!=='string'||!/^[a-f0-9]{64}$/.test(value))throw new Error('Invalid backup fingerprint.');
   if(Object.keys(manifest.source||{}).sort().join()!=='apps,control,objects')throw new Error('Incomplete backup fingerprints.');
   for(const plane of ['control','apps'] as const) {
-    const data=bundle[plane];if(!data||Object.keys(data).sort().join()!==[...BACKUP_TABLES[plane]].sort().join())throw new Error('Unexpected backup table.');
-    for(const table of BACKUP_TABLES[plane])if(!Array.isArray(data[table])||data[table].length>MAX_ROWS||data[table].some(row=>!row||typeof row!=='object'||Array.isArray(row)))throw new Error('Invalid backup rows.');
     const migrations=manifest.migrations?.[plane];if(!Array.isArray(migrations)||!migrations.length||new Set(migrations.map(row=>row.name)).size!==migrations.length||
       migrations.some(row=>!/^\d{12,}_[a-z0-9_-]+\.sql$/.test(row.name)||!/^[a-f0-9]{64}$/.test(row.sha256)))throw new Error('Missing or invalid schema migration evidence.');
+    const data=bundle[plane];if(!data||typeof data!=='object'||Array.isArray(data))throw new Error('Unexpected backup table.');
+    if(plane==='control')for(const [table,migration] of Object.entries(LEGACY_EMPTY_TABLES))if(!Object.hasOwn(data,table)) {
+      if(migrations.some(row=>row.name===migration))throw new Error('Backup is missing a table from its applied schema.');
+      data[table]=[];
+    }
+    if(Object.keys(data).sort().join()!==[...BACKUP_TABLES[plane]].sort().join())throw new Error('Unexpected backup table.');
+    for(const table of BACKUP_TABLES[plane])if(!Array.isArray(data[table])||data[table].length>MAX_ROWS||data[table].some(row=>!row||typeof row!=='object'||Array.isArray(row)))throw new Error('Invalid backup rows.');
   }
   for(const connection of bundle.control.provider_connections)if(connection.secret_ciphertext!=='RESTORE_REQUIRES_RECONNECT'||connection.state!=='revoked')throw new Error('Backup contains a live provider grant.');
   const projects=new Set(bundle.control.projects.map(row=>row.id));
   for(const instance of bundle.apps.app_instances)if(!projects.has(instance.id))throw new Error('Inconsistent cross-plane snapshot; retry with writers stopped.');
   for(const row of orderedVersions(bundle.control.app_versions)) {
     if(!projects.has(row.project_id)||typeof row.html!=='string'||row.content_hash!==artifactHash(row.html,validateManifest(row.manifest)))throw new Error('Version content hash mismatch.');
+  }
+  const versions=new Map(bundle.control.app_versions.map(row=>[row.id,row.project_id])),draftProjects=new Set<string>();
+  for(const draft of bundle.control.project_drafts) {
+    if(!projects.has(draft.project_id)||draftProjects.has(draft.project_id)||typeof draft.prompt!=='string'||draft.prompt.length>20000||
+      typeof draft.model!=='string'||draft.model.length>200||!Number.isInteger(draft.revision)||draft.revision<1||draft.revision>2147483647||
+      (draft.base_version_id!==null&&versions.get(draft.base_version_id)!==draft.project_id))throw new Error('Invalid private draft metadata.');
+    draftProjects.add(draft.project_id);
   }
   let total=0;const ids=new Set<string>(),paths=new Set<string>();
   for(const file of bundle.apps.app_files) {
@@ -152,6 +176,20 @@ function restoredRows(bundle: BackupBundle) {
   for(const connection of control.provider_connections) {connection.secret_ciphertext='RESTORE_REQUIRES_RECONNECT';connection.state='revoked';connection.revoked_at=now;}
   return {control,apps,published};
 }
+async function compatibleSchema(bundle:BackupBundle,plane:Plane,applied:Row[]) {
+  const source=bundle.manifest.migrations[plane];
+  if(JSON.stringify(applied)===JSON.stringify(source))return true;
+  if(plane!=='control')return false;
+  const sourceNames=new Set(source.map(row=>row.name)),extra=applied.filter(row=>!sourceNames.has(row.name));
+  if(!extra.length||JSON.stringify(applied.filter(row=>sourceNames.has(row.name)))!==JSON.stringify(source))return false;
+  for(const row of extra) {
+    const entry=Object.entries(LEGACY_EMPTY_TABLES).find(([,name])=>name===row.name);
+    if(!entry||bundle.control[entry[0]].length!==0)return false;
+    const checksum=sha(await readFile(resolve('supabase/control/migrations',row.name)));
+    if(row.sha256!==checksum)return false;
+  }
+  return true;
+}
 /** Target schema must already be migrated. SQL is transactional per database, not across
  * two databases/S3. If a COMMIT outcome is uncertain we retain objects and report failure;
  * we never erase potentially durable restored data or declare partial restoration success. */
@@ -160,7 +198,7 @@ export async function restoreBackup(directory: string, control: BackupDatabase, 
   await assertEmptyDatabase(control);await assertEmptyDatabase(apps);if(!await objects.isEmpty())throw new Error('Restore target object container is not empty.');
   for(const [db,plane] of [[control,'control'],[apps,'apps']] as const) {
     const applied=(await db.query('select name,sha256 from public.promptfun_migrations order by name')).rows;
-    if(JSON.stringify(applied)!==JSON.stringify(bundle.manifest.migrations[plane]))throw new Error('Restore target schema differs from backup migrations.');
+    if(!await compatibleSchema(bundle,plane,applied))throw new Error('Restore target schema differs from backup migrations.');
   }
   const rows=restoredRows(bundle);let controlBegun=false,appsBegun=false,commitStarted=false,controlLocked=false,appsLocked=false;const uploaded:string[]=[];
   try {

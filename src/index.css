@@ -168,6 +168,14 @@ main > .notice { margin: 20px 4.5%; }
 .job-state > span:last-child { margin-left: auto; color: var(--muted); font-size: 11px; }
 .state-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); }
 .state-dot.settled { background: var(--cyan); }
+.draft-status { margin: 12px 0; padding: 10px 13px; border-left: 2px solid var(--cyan); background: var(--deep); font-size: 13px; }
+.draft-status p { margin: 5px 0; }
+.draft-error, .draft-conflict { border-color: var(--amber); }
+.draft-status .button-row { flex-wrap: wrap; margin-top: 12px; }
+.draft-remote { max-height: 180px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; padding: 10px; border: 1px solid var(--line); }
+.creator-checklist { margin-bottom: 18px; padding: 15px; border: 1px solid var(--line); }
+.creator-checklist h2 { font-size: 15px; margin: 0 0 9px; }
+.creator-checklist ol { margin: 0; padding-left: 20px; color: var(--muted); font-size: 13px; line-height: 1.6; }
 .usage-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 17px 0 14px; font-size: 11px; color: var(--muted); }
 .usage-row strong { display: block; font-size: 13px; color: var(--white); font-weight: 550; overflow-wrap: anywhere; margin-top: 4px; }
 .project-secondary, .public-secondary { display: grid; grid-template-columns: 1fr 1fr; gap: 38px; margin-top: 30px; padding-top: 28px; border-top: 1px solid var(--line); align-items: start; }

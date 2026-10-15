@@ -1,5 +1,17 @@
 # Validación y estado de la entrega
 
+## Actualización del creador — 15 de octubre de 2026
+
+Se implementaron borradores privados con texto/modelo/base y revisión optimista, autosave confirmado por servidor, recuperación del proyecto activo, resolución explícita de conflictos y protección ante respuestas perdidas u obsoletas. Los trabajos inciertos detienen el polling y permiten comprobar ejecución/consumo sin reenviar inferencia. El SDK ahora expone `files.delete(id)` mediante el gateway autorizado existente.
+
+- **119 pruebas TypeScript/SQL/HTTP/controlador/bridge aprobadas**, sin fallos ni omitidas. TypeScript y build aprobados. Incluyen respuestas de guardado perdidas después de revertir texto y compatibilidad de respaldos pre005/pre006 sin modificar sus hashes o journals originales. [Registro del código probado y hashes](evidence/creator-checks.2026-10-15.json).
+- **16 pruebas de navegador aprobadas**: recarga/relogin, autosave de los tres campos, conflictos entre pestañas, fallo de transporte, historial Atrás/Adelante, aislamiento al cambiar cuenta, respuestas de lista obsoletas, carga de candidata y consulta de consumo sin cambiar la base. El fixture usa router/migraciones/SQL reales con PGlite, extensión técnica y catálogo HTTP de prueba explícitos; no OAuth ni inferencia reales. Capturas de escritorio y 360 px inspeccionadas; no auditoría WCAG completa.
+- **Neon QA real aprobado**: dos identidades técnicas por firma de mensaje; guardado exacto/reenvío seguro; dos sesiones SQL concurrentes producen 200/409 sin sobrescritura; propietario ajeno 404, CSRF 403 y sesión revocada 401; recuperar borrador tras cerrar pool y volver a autenticar. [Evidencia saneada](evidence/neon-creator-drafts.2026-10-15.json).
+- **Migración control006 aplicada al principal**, después de backup SQL/objetos verificado: RLS activo, cero grants de navegador, cero filas fixture escritas en los planos principales. [Evidencia saneada](evidence/neon-creator-drafts-migration.2026-10-15.json).
+- **Restore Neon SQL/S3 real aprobado** a las 06:08:10 UTC: un proyecto, un borrador con revisión/base exactas, dos versiones inmutables, un usuario técnico de app, una tarea y un archivo privado de 97 bytes con SHA-256 coincidente. Dos bases y bucket destino aislados vacíos, endpoints/credenciales distintos del principal; no se restauraron sesiones ni conexiones del proveedor. Relogin técnico del propietario y rechazo 404 de otra cuenta aprobados. El usuario de app es fixture SQL explícito: no acredita Managed Auth, generación o uso real del gestor. [Evidencia saneada](evidence/neon-creator-restore.2026-10-15.json).
+
+La aceptación personal de Phantom/correo, OpenRouter sin saldo, app de tareas con usuarios/adjuntos, iteración y publicación sigue pendiente. [Guía de ejecución](CREATOR_ACCEPTANCE.md). Devnet conserva el aplazamiento del usuario. Las secciones siguientes documentan el corte previo del 13 de octubre; no suman sus pruebas a las del corte nuevo.
+
 Corte de evidencia: 13 de octubre de 2026. Esta lista separa lo observado de lo preparado. G1, G2 y G3 permanecen abiertas según [TRACEABILITY.md](TRACEABILITY.md).
 
 **Decisión humana del 13 de octubre:** continuar con el cierre de código/PRs; el usuario conectará OpenRouter después y pidió dejar el despliegue Devnet pendiente. Ese aplazamiento no acredita inferencia o finanzas reales ni cierra las gates. La entrega integral no se declara aceptada.

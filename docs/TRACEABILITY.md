@@ -7,7 +7,7 @@ Revisión: 13 de octubre de 2026. IDs R, PF, D y G proceden del [Plan de desarro
 | R | PF relacionados | Implementación / prueba local | Pendiente para aceptación |
 | --- | --- | --- | --- |
 | R01 Identidad y permisos | PF02, PF03 | BFF, CSRF/Origin, auth separada, propietario, revocación; tests control.identity/control/database | Neon real, dos cuentas y revocación real del proveedor |
-| R02 Persistencia del proyecto | PF03, PF16 | SQL de proyectos/versiones y runtime CRUD, sesiones y metadata de archivos; tests SQL/HTTP | Reiniciar procesos, volver a autenticar y recuperar datos/adjuntos en Neon |
+| R02 Persistencia del proyecto | PF03, PF16 | SQL de proyectos/versiones y runtime CRUD; borradores privados con revisión optimista, autosave y restauración; tests SQL/HTTP/controlador y navegador | Recorrido personal: reiniciar procesos, volver a autenticar y recuperar proyecto/borrador/datos/adjuntos en Neon |
 | R03 Generación durable | PF02, PF06, PF15 | Jobs, intento único, leases, recuperación y no repetición de envío ambiguo; tests control | Inferencia propia sin saldo, caída del worker y recuperación real |
 | R04 Aislamiento del preview | PF05 | Hostnames distintos, iframe opaco, CSP y bridge acotado; tests runtime/security | Ejecución en navegador y prueba adversarial de fronteras |
 | R05 Publicación/versiones | PF04, PF09 | Versiones inmutables, candidata privada y puntero público explícito; tests SQL/HTTP | Dos cuentas, publicar y volver a versión previa sin filtrar borradores |

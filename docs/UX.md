@@ -10,6 +10,12 @@ La navegación ofrece **Crear** y **Descubrir**. El mercado se carga al abrirlo,
 
 ## Crear y conservar un proyecto
 
+Actualización del 15 de octubre: el editor distingue «Cargando borrador», «Cambios sin guardar», «Guardando», «Guardado», «Error al guardar» y «Conflicto entre revisiones». «Guardado» necesita respuesta del servidor y abarca prompt, modelo y versión base. Cambiar proyecto, ir a Descubrir, cerrar sesión o conectar OpenRouter guarda antes de salir; si falla, el texto permanece en el proyecto. Recargar recupera su selección desde la URL, sin guardar el prompt en ella. Un cierre con cambios pendientes utiliza la advertencia nativa del navegador; descartar esa advertencia puede perder los cambios no confirmados.
+
+Un conflicto muestra la copia del servidor junto al texto local intacto. **Usar revisión del servidor** sustituye el editor; **Guardar mi borrador sobre esta revisión** envía conscientemente la copia local usando la revisión observada. Si otra pestaña vuelve a editar, se presenta otro conflicto. Un fallo de lectura nunca inicia un guardado vacío.
+
+La guía inicial muestra cuenta, conexión OpenRouter y elección gratuita. El ejemplo de gestor de tareas rellena la petición cuando el editor está vacío; necesita una generación real para producir una app. El catálogo disponible no promete cuota: ambas se comprueban al ejecutar.
+
 1. Entrar con **Phantom**, **Solflare** o correo. La wallet firma un mensaje de acceso sin transacción ni SOL; la primera firma crea una cuenta si no existe. Con email/contraseña, introducir el código OTP recibido cuando falte confirmar el correo y después entrar normalmente. Google no está configurado.
 2. Crear un proyecto con título y descripción. Su estado inicial es privado.
 3. Conectar la cuenta propia de OpenRouter mediante redirección; consultar los modelos gratuitos elegibles y su disponibilidad real.
@@ -24,7 +30,7 @@ La navegación ofrece **Crear** y **Descubrir**. El mercado se carga al abrirlo,
 | completed | Versión candidata para revisar y comparar |
 | no_changes | El resultado coincide con la base; se conserva el historial sin inventar una mejora |
 | failed | Motivo recibido; no se genera una app ficticia |
-| uncertain | La llamada pudo haberse enviado; no se repite automáticamente |
+| uncertain | «Requiere revisión», sin polling automático; **Comprobar estado** sólo consulta el trabajo; permite editar/guardar sin repetir el intento equivalente |
 | Uso pending / unknown | Tokens/coste pendientes o desconocidos, nunca rellenados con ceros supuestos |
 | Proveedor revocado, agotado o no disponible | Error y reconexión/reintento consciente; no se activa un pago alternativo |
 
